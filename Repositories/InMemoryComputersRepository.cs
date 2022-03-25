@@ -5,7 +5,9 @@ using System.Linq;
 
 namespace RaFilDaAPI.Repositories
 {
-    public class InMemoryComputersRepository
+
+
+    public class InMemoryComputersRepository : IComputersRepository
     {
         private readonly List<Computer> computers = new()
         {
