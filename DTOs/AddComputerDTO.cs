@@ -1,13 +1,14 @@
-using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RaFilDaAPI.DTOs
 {
-    public record ComputerDTO
+    public record AddComputerDTO
     {
-        public Guid Id { get; init; }
+        [Required]
         public string Name { get; init; }
+        [Required]
         public string MAC { get; init; }
+        [Required]
         public string IP { get; init; }
-        public DateTimeOffset LastSeen { get; init; }
     }
 }

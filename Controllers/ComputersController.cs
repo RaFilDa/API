@@ -26,13 +26,29 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ComputerDTO> GetComputer(int id)
+        public ActionResult<ComputerDTO> GetComputer(Guid id)
         {
             var comp = repository.GetComputer(id);
             if (comp == null)
                 { return NotFound(); }
 
             return comp.AsDTO();
+        }
+
+        [HttpPost]
+        public ActionResult<ComputerDTO> AddComputer(AddComputerDTO computerDTO)
+        {
+            Computer computer = new(){
+                Id = Guid.NewGuid(),
+                Name = computerDTO.Name,
+                MAC = computerDTO.MAC,
+                IP = computerDTO.MAC,
+                LastSeen = DateTimeOffset.UtcNow    //temp
+            };
+
+            repository.AddComputer(computer);
+
+            return CreatedAtAction(nameof(AddComputer), new {id = computer.Id}, computer.AsDTO());
         }
     }
 }
