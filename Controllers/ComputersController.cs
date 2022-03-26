@@ -50,5 +50,35 @@ namespace RaFilDaAPI.Controllers
 
             return CreatedAtAction(nameof(AddComputer), new {id = computer.Id}, computer.AsDTO());
         }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateComputer(Guid id, UpdateComputerDTO computerDTO)
+        {
+            var existingComputer = repository.GetComputer(id);
+            if (existingComputer == null)
+                return NotFound();
+            
+            Computer updatedComputer = existingComputer with {
+                Name = computerDTO.Name,
+                MAC = computerDTO.MAC,
+                IP = computerDTO.MAC
+            };
+
+            repository.UpdateComputer(updatedComputer);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteComputer(Guid id)
+        {
+            var existingComputer = repository.GetComputer(id);
+            if (existingComputer == null)
+                return NotFound();
+
+            repository.DeleteComputer(id);
+
+            return NoContent();
+        }
     }
 }

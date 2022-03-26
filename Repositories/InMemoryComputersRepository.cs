@@ -30,5 +30,17 @@ namespace RaFilDaAPI.Repositories
         {
             computers.Add(computer);
         }
+
+        public void UpdateComputer(Computer computer)
+        {
+            var index = computers.FindIndex(c => c.Id == computer.Id);
+            computers[index] = computer;
+        }
+
+        public void DeleteComputer(Guid id)
+        {
+            var index = computers.FindIndex(c => c.Id == id);
+            computers.RemoveAt(index);
+        }
     }
 }

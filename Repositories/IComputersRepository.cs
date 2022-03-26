@@ -9,5 +9,7 @@ namespace RaFilDaAPI.Repositories
         Computer GetComputer(Guid id);
         IEnumerable<Computer> GetComputers();
         void AddComputer(Computer computer);
+        void UpdateComputer(Computer computer);
+        void DeleteComputer(Guid id);
     }
 }
