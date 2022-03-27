@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RaFilDaAPI.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace RaFilDaAPI
 {
@@ -30,6 +31,12 @@ namespace RaFilDaAPI
             services.AddSingleton<IComputersRepository, InMemoryComputersRepository>();
 
             services.AddControllers();
+
+            services.AddDbContext<MyContext>(options => 
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RaFilDaAPI", Version = "v1" });
