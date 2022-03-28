@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace RaFilDaAPI.Repositories
 {
-
+/*
 
     public class InMemoryComputersRepository : IComputersRepository
     {
@@ -13,7 +13,7 @@ namespace RaFilDaAPI.Repositories
         {
             new Computer { Id = Guid.NewGuid(), Name = "TestComputer_1", MAC = "2C:54:91:88:C9:E3", IP = "69.89.31.226", LastSeen = DateTimeOffset.UtcNow },
             new Computer { Id = Guid.NewGuid(), Name = "TestComputer_2", MAC = "2C:54:91:88:C9:E3", IP = "69.89.31.226", LastSeen = DateTimeOffset.UtcNow },
-            new Computer { Id = Guid.NewGuid(), Name = "TestComputer_3", MAC = "2C:54:91:88:C9:E3", IP = "69.89.31.226", LastSeen = DateTimeOffset.UtcNow }
+            new Computer { Id = Guid.NewGuid(), Name = "TestComputer_3", MAC = "2C:54:91:88:C9:E3", IP = "69.89.31.226", LastSeen = DateTimeOffset.UtcNow } 
         };
 
         public IEnumerable<Computer> GetComputers()
@@ -41,4 +41,5 @@ namespace RaFilDaAPI.Repositories
             computers.RemoveAt(computers.FindIndex(c => c.Id == id));
         }
     }
+    */
 }

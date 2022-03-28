@@ -4,10 +4,10 @@ namespace RaFilDaAPI.Entities
 {
     public record Computer
     {
-        public Guid Id { get; init; }
+        public int Id { get; init; }
         public string Name { get; set; }
         public string MAC { get; set; }
         public string IP { get; set; }
-        public DateTimeOffset LastSeen { get; init; }
+        public DateTime LastSeen { get; init; }
     }
 }

@@ -6220,19 +6220,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Danny\\.nuget\\packages\\": {}
+    "C:\\Users\\palasdanny\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\RaFilDaAPI\\RaFilDaAPI.csproj",
+      "projectUniqueName": "C:\\Users\\palasdanny\\Desktop\\API\\RaFilDaAPI.csproj",
       "projectName": "RaFilDaAPI",
-      "projectPath": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\RaFilDaAPI\\RaFilDaAPI.csproj",
-      "packagesPath": "C:\\Users\\Danny\\.nuget\\packages\\",
-      "outputPath": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\RaFilDaAPI\\obj\\",
+      "projectPath": "C:\\Users\\palasdanny\\Desktop\\API\\RaFilDaAPI.csproj",
+      "packagesPath": "C:\\Users\\palasdanny\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\palasdanny\\Desktop\\API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\palasdanny\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6297,7 +6301,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

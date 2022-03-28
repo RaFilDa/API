@@ -3,6 +3,7 @@ using RaFilDaAPI.Entities;
 
 namespace RaFilDaAPI
 {
+    /*
     public static class Extensions{
         public static ComputerDTO AsDTO(this Computer computer)
         {
@@ -15,4 +16,5 @@ namespace RaFilDaAPI
             };
         }
     }
+    */
 }
