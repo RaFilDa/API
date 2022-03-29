@@ -37,6 +37,7 @@
           "Microsoft.EntityFrameworkCore.Relational": "5.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.10",
           "MySql.Data": "8.0.28",
+          "MySql.EntityFrameworkCore": "5.0.10",
           "Swashbuckle.AspNetCore": "5.6.3",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
@@ -739,6 +740,22 @@
           "lib/net5.0/ZstdNet.dll": {}
         }
       },
+      "MySql.EntityFrameworkCore/5.0.10": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.10",
+          "Microsoft.EntityFrameworkCore.Relational": "5.0.10",
+          "MySql.Data": "8.0.28"
+        },
+        "runtime": {
+          "lib/netstandard2.1/MySql.EntityFrameworkCore.dll": {
+            "assemblyVersion": "5.0.10.0",
+            "fileVersion": "5.0.10.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.1/MySql.EntityFrameworkCore.dll": {}
+        }
+      },
       "Newtonsoft.Json/10.0.1": {
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
@@ -853,11 +870,7 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Collections.Immutable/5.0.0": {
-        "compile": {
-          "lib/netstandard2.0/System.Collections.Immutable.dll": {}
-        }
-      },
+      "System.Collections.Immutable/5.0.0": {},
       "System.Collections.NonGeneric/4.3.0": {
         "dependencies": {
           "System.Diagnostics.Debug": "4.3.0",
@@ -884,11 +897,7 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.ComponentModel.Annotations/5.0.0": {
-        "compile": {
-          "ref/netstandard2.1/System.ComponentModel.Annotations.dll": {}
-        }
-      },
+      "System.ComponentModel.Annotations/5.0.0": {},
       "System.ComponentModel.Primitives/4.3.0": {
         "dependencies": {
           "System.ComponentModel": "4.3.0",
@@ -1234,11 +1243,7 @@
           }
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
-        "compile": {
-          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {}
-        }
-      },
+      "System.Runtime.CompilerServices.Unsafe/5.0.0": {},
       "System.Runtime.Extensions/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -3404,6 +3409,13 @@
       "sha512": "sha512-7b699tU9ba0r7SBK7K9snGJB9ulnOdwEXG28kpVvaQSN0hHenfoJ/ADOtdfhcvcn1KStBX8pFK5qIl8scdBL2g==",
       "path": "mysql.data/8.0.28",
       "hashPath": "mysql.data.8.0.28.nupkg.sha512"
+    },
+    "MySql.EntityFrameworkCore/5.0.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RET0ydaQZmPcZf9KJGZVniB6m8gDgZBn7z3nMWzvlkLKpWaRITcWGDFtBOI1jer2WuFnHJ1ReTMu/DRxNNWKNw==",
+      "path": "mysql.entityframeworkcore/5.0.10",
+      "hashPath": "mysql.entityframeworkcore.5.0.10.nupkg.sha512"
     },
     "Newtonsoft.Json/10.0.1": {
       "type": "package",

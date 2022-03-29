@@ -37,7 +37,7 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Computer>> GetComputer(Guid id)
+        public async Task<ActionResult<Computer>> GetComputer(int id)
         {
             var comp = await myContext.Computers.FindAsync(id);
             if (comp == null)
@@ -100,7 +100,7 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Computer>>> DeleteComputer(Guid id)
+        public async Task<ActionResult<List<Computer>>> DeleteComputer(int id)
         {
             /*var existingComputer = repository.GetComputer(id);
             if (existingComputer == null)
@@ -115,6 +115,7 @@ namespace RaFilDaAPI.Controllers
                 return NotFound();
 
             myContext.Computers.Remove(computer);
+            myContext.SaveChanges();
 
             return Ok(await myContext.Computers.ToListAsync());
         }
