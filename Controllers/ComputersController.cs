@@ -69,7 +69,7 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<Computer>>> UpdateComputer(Computer computer)
+        public async Task<ActionResult<List<Computer>>> UpdateComputer(Computer computer, int id)
         {
             /*var existingComputer = repository.GetComputer(id);
             if (existingComputer == null)
@@ -86,13 +86,13 @@ namespace RaFilDaAPI.Controllers
             return NoContent();
             */
 
-            var dbComputer = await myContext.Computers.FindAsync(computer.Id);
+            var dbComputer = await myContext.Computers.FindAsync(id);
             if (dbComputer == null)
                 return NotFound();
 
             dbComputer.Name = computer.Name;
             dbComputer.MAC = computer.MAC;
-            dbComputer.IP = computer.MAC;
+            dbComputer.IP = computer.IP;
 
             await myContext.SaveChangesAsync();
 
