@@ -174,17 +174,11 @@ namespace RaFilDaAPI.Controllers
             if(compID == 0 || groupID == 0)
                 return BadRequest();
 
-            /*List<CompGroup> removedId = myContext.CompGroups.FromSqlRaw("select Id from CompGroups where CompID = {0} and GroupID = {1}", compID, groupID).ToList();
-
-            var compGroup = new CompGroup{
-                Id = removedId[0].Id,
-                CompID = compID,
-                GroupID = groupID
-            }; 
-            myContext.CompGroups.Remove(compGroup);
-
-            myContext.CompGroups.ExecuteSqlCommandAsync("delete from CompGroups where CompID = {0} and GroupID = {1})", compID, groupID);
-            myContext.SaveChanges();*/
+            var deleted =
+                myContext.CompGroups.FromSqlRaw("select * from CompGroups where GroupID = {0} and CompID = {1}",
+                    groupID, compID).First();
+            myContext.CompGroups.Remove(deleted);
+            myContext.SaveChanges();
 
             return Ok(myContext.CompGroups.FromSqlRaw("select * from CompGroups"));
         }
