@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\piterakradek\\Desktop\\API\\RaFilDaAPI.csproj": {}
+    "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\RaFilDaAPI_2\\API\\RaFilDaAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\piterakradek\\Desktop\\API\\RaFilDaAPI.csproj": {
+    "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\RaFilDaAPI_2\\API\\RaFilDaAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\piterakradek\\Desktop\\API\\RaFilDaAPI.csproj",
+        "projectUniqueName": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\RaFilDaAPI_2\\API\\RaFilDaAPI.csproj",
         "projectName": "RaFilDaAPI",
-        "projectPath": "C:\\Users\\piterakradek\\Desktop\\API\\RaFilDaAPI.csproj",
-        "packagesPath": "C:\\Users\\piterakradek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\piterakradek\\Desktop\\API\\obj\\",
+        "projectPath": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\RaFilDaAPI_2\\API\\RaFilDaAPI.csproj",
+        "packagesPath": "C:\\Users\\Danny\\.nuget\\packages\\",
+        "outputPath": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\RaFilDaAPI_2\\API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\piterakradek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -86,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
