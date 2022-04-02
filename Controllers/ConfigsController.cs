@@ -25,6 +25,12 @@ namespace RaFilDaAPI.Controllers
             return Ok(await myContext.Configs.ToListAsync());
         }
 
+        [HttpGet("{computerId}")]
+        public IQueryable<CompConf> GetConfigs_ByComputerID(int computerId)
+        {
+            return myContext.CompConfs.FromSqlRaw("select * from CompConfs where CompID = {0}", computerId);
+        }
+
         [HttpPost]
         public async Task<ActionResult<List<Config>>> AddConfig(Config config)
         {
@@ -32,6 +38,24 @@ namespace RaFilDaAPI.Controllers
             await myContext.SaveChangesAsync();
 
             return Ok(await myContext.Configs.ToListAsync());
+        }
+
+        [HttpPost]
+        [Route("AddConfigToComputer")]
+        public ActionResult<IQueryable<CompConf>> AddConfigToComputer(int confId, int compId)
+        {
+            if(confId == 0 || compId == 0)
+                return BadRequest();
+
+            var compConf = new CompConf{
+                Id = 0, 
+                ConfigID = confId,
+                CompID = compId
+            };
+            myContext.CompConfs.Add(compConf);
+            myContext.SaveChanges();
+
+            return Ok(myContext.CompConfs.FromSqlRaw("select * from CompConfs"));
         }
 
         [HttpDelete("{id}")]

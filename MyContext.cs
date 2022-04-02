@@ -12,5 +12,7 @@ namespace RaFilDaAPI
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<CompGroup> CompGroups { get; set; }
+        public DbSet<CompConf> CompConfs { get; set; }
     }
 }

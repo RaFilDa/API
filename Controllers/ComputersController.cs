@@ -47,6 +47,14 @@ namespace RaFilDaAPI.Controllers
             return Ok(comp);
         }
 
+        
+        [HttpGet]
+        [Route("GetComputersByConfigID")]
+        public IQueryable<CompConf> GetComputers_ByConfigID(int confId)
+        {
+            return myContext.CompConfs.FromSqlRaw("select * from CompConfs where ConfigID = {0}", confId);
+        }
+
         [HttpPost]
         public async Task<ActionResult<List<Computer>>> AddComputer(Computer computer)
         {
@@ -68,7 +76,46 @@ namespace RaFilDaAPI.Controllers
             return Ok(await myContext.Computers.ToListAsync());
         }
 
-        [HttpPut("{id}")]
+        [HttpPost]
+        [Route("AddComputerToGroup")]
+        public ActionResult<IQueryable<CompGroup>> AddComputerToGroup(int compID, int groupID)
+        {
+            if(compID == 0 || groupID == 0)
+                return BadRequest();
+
+            var compGroup = new CompGroup{
+                Id = 0, 
+                CompID = compID,
+                GroupID = groupID
+            };
+            myContext.CompGroups.Add(compGroup);
+            myContext.SaveChanges();
+
+            //myContext.CompGroups.FromSqlRaw("insert into CompGroup values(0, {0}, {1})", compID, groupID);
+
+            return Ok(myContext.CompGroups.FromSqlRaw("select * from CompGroups"));
+        }
+
+        [HttpPost]
+        [Route("AddComputerToConfig")]
+        public ActionResult<IQueryable<CompConf>> AddComputerToConfig(int compID, int configID)
+        {
+            if(compID == 0 || configID == 0)
+                return BadRequest();
+
+            var compConfig = new CompConf{
+                Id = 0, 
+                CompID = compID,
+                ConfigID = configID
+            };
+            myContext.CompConfs.Add(compConfig);
+            myContext.SaveChanges();
+
+            return Ok(myContext.CompConfs.FromSqlRaw("select * from CompConfs"));
+        }
+
+        [HttpPut]
+        [Route("UpdateComputer")]
         public async Task<ActionResult<List<Computer>>> UpdateComputer(Computer computer, int id)
         {
             /*var existingComputer = repository.GetComputer(id);
@@ -118,6 +165,28 @@ namespace RaFilDaAPI.Controllers
             myContext.SaveChanges();
 
             return Ok(await myContext.Computers.ToListAsync());
+        }
+
+        [HttpDelete]
+        [Route("RemoveComputerFromGroup")]
+        public ActionResult<IQueryable<CompGroup>> RemoveComputerFromGroup(int compID, int groupID)
+        {
+            if(compID == 0 || groupID == 0)
+                return BadRequest();
+
+            /*List<CompGroup> removedId = myContext.CompGroups.FromSqlRaw("select Id from CompGroups where CompID = {0} and GroupID = {1}", compID, groupID).ToList();
+
+            var compGroup = new CompGroup{
+                Id = removedId[0].Id,
+                CompID = compID,
+                GroupID = groupID
+            }; 
+            myContext.CompGroups.Remove(compGroup);
+
+            myContext.CompGroups.ExecuteSqlCommandAsync("delete from CompGroups where CompID = {0} and GroupID = {1})", compID, groupID);
+            myContext.SaveChanges();*/
+
+            return Ok(myContext.CompGroups.FromSqlRaw("select * from CompGroups"));
         }
     }
 }
