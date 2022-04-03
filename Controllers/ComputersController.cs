@@ -172,15 +172,37 @@ namespace RaFilDaAPI.Controllers
         public ActionResult<IQueryable<CompGroup>> RemoveComputerFromGroup(int compID, int groupID)
         {
             if(compID == 0 || groupID == 0)
-                return BadRequest();
+                return BadRequest();         
 
+            try {
             var deleted =
                 myContext.CompGroups.FromSqlRaw("select * from CompGroups where GroupID = {0} and CompID = {1}",
                     groupID, compID).First();
-            myContext.CompGroups.Remove(deleted);
+                myContext.CompGroups.Remove(deleted);
+            }
+            catch { return NotFound(); }
             myContext.SaveChanges();
 
             return Ok(myContext.CompGroups.FromSqlRaw("select * from CompGroups"));
+        }
+
+        [HttpDelete]
+        [Route("RemoveComputerFromConfig")]
+        public ActionResult<IQueryable<CompConf>> RemoveComputerFromConfig(int compID, int configID)
+        {
+            if(compID == 0 || configID == 0)
+                return BadRequest();         
+
+            try {
+            var deleted =
+                myContext.CompConfs.FromSqlRaw("select * from CompConfs where ConfigID = {0} and CompID = {1}",
+                    configID, compID).First();
+                myContext.CompConfs.Remove(deleted);
+            }
+            catch { return NotFound(); }
+            myContext.SaveChanges();
+
+            return Ok(myContext.CompConfs.FromSqlRaw("select * from CompConfs"));
         }
     }
 }

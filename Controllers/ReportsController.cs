@@ -46,5 +46,11 @@ namespace RaFilDaAPI.Controllers
 
             return Ok(await myContext.Reports.ToListAsync());
         }
+
+        /*[HttpDelete("{date}")]
+        public async Task<ActionResult<List<Report>>> DeleteReportByDate(DateTime date)
+        {
+            //TBA
+        } */
     }
 }

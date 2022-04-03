@@ -14,5 +14,6 @@ namespace RaFilDaAPI
         public DbSet<Report> Reports { get; set; }
         public DbSet<CompGroup> CompGroups { get; set; }
         public DbSet<CompConf> CompConfs { get; set; }
+        public DbSet<ConfGroup> ConfGroups { get; set; }
     }
 }
