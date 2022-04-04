@@ -14,14 +14,7 @@ namespace RaFilDaAPI.Controllers
     [Route("Computers")]
     public class ComputersController : ControllerBase
     {
-        //private readonly IComputersRepository repository;
         private readonly MyContext myContext;
-
-        /*
-        public ComputersController(IComputersRepository repository)
-        {
-            this.repository = repository;
-        } */
 
         public ComputersController(MyContext myContext)
         {
@@ -31,8 +24,6 @@ namespace RaFilDaAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Computer>>> GetComputers()
         {
-            //return repository.GetComputers().Select(computer => computer.AsDTO());
-
             return Ok(await myContext.Computers.ToListAsync());
         }
 
@@ -43,7 +34,6 @@ namespace RaFilDaAPI.Controllers
             if (comp == null)
                 { return NotFound(); }
 
-            //return comp.AsDTO();
             return Ok(comp);
         }
 
@@ -58,18 +48,6 @@ namespace RaFilDaAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<List<Computer>>> AddComputer(Computer computer)
         {
-            /* Computer computer = new(){
-                Id = Guid.NewGuid(),
-                Name = computerDTO.Name,
-                MAC = computerDTO.MAC,
-                IP = computerDTO.MAC,
-                LastSeen = DateTimeOffset.UtcNow    //temp
-            };
-
-            repository.AddComputer(computer); 
-
-            return CreatedAtAction(nameof(AddComputer), new {id = computer.Id}, computer.AsDTO()); */
-
             myContext.Computers.Add(computer);
             await myContext.SaveChangesAsync();
 
@@ -90,8 +68,6 @@ namespace RaFilDaAPI.Controllers
             };
             myContext.CompGroups.Add(compGroup);
             myContext.SaveChanges();
-
-            //myContext.CompGroups.FromSqlRaw("insert into CompGroup values(0, {0}, {1})", compID, groupID);
 
             return Ok(myContext.CompGroups.FromSqlRaw("select * from CompGroups"));
         }
@@ -118,21 +94,6 @@ namespace RaFilDaAPI.Controllers
         [Route("UpdateComputer")]
         public async Task<ActionResult<List<Computer>>> UpdateComputer(Computer computer, int id)
         {
-            /*var existingComputer = repository.GetComputer(id);
-            if (existingComputer == null)
-                return NotFound();
-            
-            Computer updatedComputer = existingComputer with {
-                Name = computerDTO.Name,
-                MAC = computerDTO.MAC,
-                IP = computerDTO.MAC
-            };
-
-            repository.UpdateComputer(updatedComputer); 
-            
-            return NoContent();
-            */
-
             var dbComputer = await myContext.Computers.FindAsync(id);
             if (dbComputer == null)
                 return NotFound();
@@ -158,14 +119,6 @@ namespace RaFilDaAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<Computer>>> DeleteComputer(int id)
         {
-            /*var existingComputer = repository.GetComputer(id);
-            if (existingComputer == null)
-                return NotFound();
-
-            repository.DeleteComputer(id);
-
-            return NoContent();*/
-
             var computer = await myContext.Computers.FindAsync(id);
             if (computer == null)
                 return NotFound();
