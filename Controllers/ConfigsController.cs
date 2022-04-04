@@ -31,6 +31,18 @@ namespace RaFilDaAPI.Controllers
             return myContext.CompConfs.FromSqlRaw("select * from CompConfs where CompID = {0}", computerId);
         }
 
+        [HttpGet("Destination/{configId}")]
+        public IQueryable<Destination> GetDestinationForConfig(int configId)
+        {
+            return myContext.Destination.FromSqlRaw("select * from Destination where ConfigID = {0}", configId);
+        }
+
+        [HttpGet("Source/{configId}")]
+        public IQueryable<Source> GetSourceForConfig(int configId)
+        {
+            return myContext.Source.FromSqlRaw("select * from Source where ConfigID = {0}", configId);
+        }
+
         [HttpGet]
         [Route("GetConfigsByGroupID")]
         public IQueryable<ConfGroup> GetConfigs_ByGroupID(int groupId)

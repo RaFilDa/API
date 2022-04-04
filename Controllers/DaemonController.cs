@@ -29,7 +29,7 @@ namespace RaFilDaAPI.Controllers
             {
                 var daemon = new DaemonInfo()
                 {
-                    Cron = config.Cron, Destinations = myContext.Destination.FromSqlRaw("select * from Destination where ConfigId = {0}", config.Id).ToList(), Sources = myContext.Source.FromSqlRaw("select * from Source where ConfigId = {0}", config.Id).ToList()
+                    Config = config, Destinations = myContext.Destination.FromSqlRaw("select * from Destination where ConfigId = {0}", config.Id).ToList(), Sources = myContext.Source.FromSqlRaw("select * from Source where ConfigId = {0}", config.Id).ToList()
                 };
                 daemonList.Add(daemon);
             }

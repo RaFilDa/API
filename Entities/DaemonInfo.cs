@@ -4,7 +4,7 @@ namespace RaFilDaAPI.Entities
 {
     public record DaemonInfo
     {
-        public string Cron { get; set; }
+        public Config Config { get; set; }
         public List<Destination> Destinations { get; set; }
         public List<Source> Sources { get; set; }
     }
