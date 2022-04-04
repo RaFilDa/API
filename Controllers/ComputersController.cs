@@ -146,6 +146,15 @@ namespace RaFilDaAPI.Controllers
             return Ok(await myContext.Computers.ToListAsync());
         }
 
+        [HttpPut]
+        [Route("UpdateLastSeen")]
+        public async Task<ActionResult<List<Computer>>> UpdateLastSeen(int id)
+        {
+            var computer = await myContext.Computers.FindAsync(id);
+            computer.LastSeen = DateTime.UtcNow;
+            return Ok(await myContext.Computers.ToListAsync());
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<Computer>>> DeleteComputer(int id)
         {

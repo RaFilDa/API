@@ -8,6 +8,6 @@ namespace RaFilDaAPI.Entities
         public string Name { get; set; }
         public string MAC { get; set; }
         public string IP { get; set; }
-        public DateTime LastSeen { get; init; } = DateTime.UtcNow;
+        public DateTime LastSeen { get; set; } = DateTime.UtcNow;
     }
 }

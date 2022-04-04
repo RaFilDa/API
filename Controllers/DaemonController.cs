@@ -19,7 +19,7 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpGet("{ComputerID}")]
-        public List<DaemonInfo> GetCron(int ComputerID)
+        public List<DaemonInfo> GetDeamonInfo(int ComputerID)
         {
             var daemonList = new List<DaemonInfo>();
             var configList = myContext.Configs.FromSqlRaw(
