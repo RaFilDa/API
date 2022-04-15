@@ -10,6 +10,7 @@ namespace RaFilDaAPI.Controllers
 {
     [ApiController]
     [Route("Users")]
+    [Authorize(Role = "admin")]
     public class UsersController : ControllerBase
     {
         private readonly MyContext myContext;
