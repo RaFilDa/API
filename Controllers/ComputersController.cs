@@ -37,12 +37,17 @@ namespace RaFilDaAPI.Controllers
             return Ok(comp);
         }
 
-        
-        [HttpGet]
-        [Route("GetComputersByConfigID")]
-        public IQueryable<CompConf> GetComputers_ByConfigID(int confId)
+
+        [HttpGet("GetComputersByConfigID/{confId}")]
+        public IQueryable<Computer> GetComputers_ByConfigID(int confId)
         {
-            return myContext.CompConfs.FromSqlRaw("select * from CompConfs where ConfigID = {0}", confId);
+            return myContext.Computers.FromSqlRaw("select c.* from CompConfs cc inner join Computers c on c.id = cc.compId where cc.ConfigID = {0}", confId);
+        }
+        
+        [HttpGet("GetComputersByGroupID/{groupId}")]
+        public IQueryable<Computer> GetComputers_ByGroupID(int groupId)
+        {
+            return myContext.Computers.FromSqlRaw("select c.* from CompGroups cc inner join Computers c on c.id = cc.compId where cc.groupId = {0}", groupId);
         }
 
         [HttpPost]

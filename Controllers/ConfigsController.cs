@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Ubiety.Dns.Core.Records.NotUsed;
 
 namespace RaFilDaAPI.Controllers
 {
@@ -25,10 +26,14 @@ namespace RaFilDaAPI.Controllers
             return Ok(await myContext.Configs.ToListAsync());
         }
 
-        [HttpGet("{computerId}")]
-        public IQueryable<CompConf> GetConfigs_ByComputerID(int computerId)
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<List<Config>>>  GetConfig(int Id)
         {
-            return myContext.CompConfs.FromSqlRaw("select * from CompConfs where CompID = {0}", computerId);
+            var conf = await myContext.Configs.FindAsync(Id);
+            if (conf == null)
+                return NotFound();
+
+            return Ok(conf);
         }
 
         [HttpGet("Destination/{configId}")]
@@ -41,6 +46,24 @@ namespace RaFilDaAPI.Controllers
         public IQueryable<Source> GetSourceForConfig(int configId)
         {
             return myContext.Source.FromSqlRaw("select * from Source where ConfigID = {0}", configId);
+        }
+
+        [HttpPost]
+        [Route("Source")]
+        public async Task<ActionResult<List<Source>>> AddSource(Source source)
+        {
+            myContext.Source.Add(source);
+            await myContext.SaveChangesAsync();
+            return Ok(await myContext.Source.ToListAsync());
+        }
+        
+        [HttpPost]
+        [Route("Destination")]
+        public async Task<ActionResult<List<Destination>>> AddDestination(Destination destination)
+        {
+            myContext.Destination.Add(destination);
+            await myContext.SaveChangesAsync();
+            return Ok(await myContext.Destination.ToListAsync());
         }
 
         [HttpGet]

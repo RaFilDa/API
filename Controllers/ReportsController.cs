@@ -20,9 +20,9 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Report>>> GetReports()
+        public async Task<ActionResult<List<ReportDetail>>> GetReports()
         {
-            return Ok(await myContext.Reports.ToListAsync());
+            return Ok(myContext.ReportDetails.FromSqlRaw("select r.id, r.date, cf.Name, cp.MAC, r.Type as backup, r.IsError as state, r.Message from Reports r inner join CompConfs cc on cc.id = r.CompConfID inner join Computers cp on cp.ID = cc.CompID inner join Configs cf on cf.id = cc.ConfigID"));
         }
 
         [HttpPost]

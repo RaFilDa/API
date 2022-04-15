@@ -25,15 +25,18 @@ namespace RaFilDaAPI.Controllers
             return Ok(await myContext.Groups.ToListAsync());
         }
 
-        [HttpGet("{computerId}")]
-        public IQueryable<CompGroup> GetGroups_ByComputerID(int computerId)
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<Group>> GetGroup(int Id)
         {
-            return myContext.CompGroups.FromSqlRaw("select * from CompGroups where CompID = {0}", computerId);
+            var group = await myContext.Groups.FindAsync(Id);
+            if (group == null)
+                return NotFound();
+
+            return Ok(group);
         }
 
 
-        [HttpPut]
-        [Route("UpdateGroup")]
+        [HttpPut("UpdateGroup/{id}")]
         public async Task<ActionResult<List<Group>>> UpdateGroup(Group group, int id)
         {
 

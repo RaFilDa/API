@@ -41,6 +41,19 @@ namespace RaFilDaAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RaFilDaAPI", Version = "v1" });
             });
+            
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    }
+                );
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +69,8 @@ namespace RaFilDaAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors();
 
             app.UseAuthorization();
 
