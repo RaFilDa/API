@@ -11,12 +11,12 @@ namespace RaFilDaAPI.Entities
     {
         const string SECRET = "foo-bar";
 
-        private readonly MyContext context; // null takže to nejde
+        private readonly MyContext context; 
 
-        /*public AuthenticationService(MyContext myContext)
+        public AuthenticationService(MyContext myContext)
         {
-            this.context = context;
-        }*/
+            this.context = myContext;
+        }
 
         public string Authenticate(Credentials credentials)
         {

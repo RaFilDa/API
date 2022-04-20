@@ -3,6 +3,7 @@ using JWT.Builder;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RaFilDaAPI;
 using RaFilDaAPI.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,15 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class SessionsController : ControllerBase
     {
-        private RaFilDaAPI.Entities.AuthenticationService auth = new RaFilDaAPI.Entities.AuthenticationService();
+        
+        private readonly MyContext myContext;
+        private RaFilDaAPI.Entities.AuthenticationService auth;
+
+        public SessionsController(MyContext myContext)
+        {
+            this.myContext = myContext;
+            this.auth = new RaFilDaAPI.Entities.AuthenticationService(myContext);
+        }
 
         [HttpPost]
         public JsonResult Login(Credentials credentials)

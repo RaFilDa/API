@@ -9,11 +9,22 @@ using RaFilDaAPI.Entities;
 
 namespace RaFilDaAPI.Controllers
 {
+    
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
         public string Role { get; set; }
 
-        private AuthenticationService auth = new AuthenticationService();
+        /*private readonly MyContext myContext;
+        private AuthenticationService auth;
+
+        public AuthorizeAttribute(MyContext myContext)
+        {
+            this.myContext = myContext;
+            this.auth = new AuthenticationService(myContext);
+        }*/
+
+
+        private AuthenticationService auth = new AuthenticationService(null);
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
