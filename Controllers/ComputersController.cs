@@ -36,8 +36,13 @@ namespace RaFilDaAPI.Controllers
 
             return Ok(comp);
         }
-
-
+        
+        [HttpGet("GetComputersByMAC/{MAC}")]
+        public IQueryable<Computer> GetComputers_ByMac(string MAC)
+        {
+            return myContext.Computers.FromSqlRaw("select c.* from Computers c where c.MAC = {0}", MAC);
+        }
+        
         [HttpGet("GetComputersByConfigID/{confId}")]
         public IQueryable<Computer> GetComputers_ByConfigID(int confId)
         {
