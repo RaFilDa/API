@@ -8530,26 +8530,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Danny\\.nuget\\packages\\": {}
+    "C:\\Users\\Radek\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Radek\\RiderProjects\\API\\RaFilDaAPI.csproj",
       "projectName": "RaFilDaAPI",
-      "projectPath": "d:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
-      "packagesPath": "C:\\Users\\Danny\\.nuget\\packages\\",
-      "outputPath": "d:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\obj\\",
+      "projectPath": "C:\\Users\\Radek\\RiderProjects\\API\\RaFilDaAPI.csproj",
+      "packagesPath": "C:\\Users\\Radek\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Radek\\RiderProjects\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Radek\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -8625,6 +8623,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[5.0.15, 5.0.15]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8633,7 +8649,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\Radek\\.dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

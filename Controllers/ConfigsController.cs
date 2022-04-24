@@ -35,6 +35,16 @@ namespace RaFilDaAPI.Controllers
 
             return Ok(conf);
         }
+        
+        [HttpGet("ByName/{name}")]
+        public async Task<ActionResult<int>> GetConfigByName(string name)
+        {
+            var conf = myContext.Configs.Where(x => x.Name == name).First();
+            if (conf == null)
+                return NotFound();
+
+            return Ok(conf.Id);
+        }
 
         [HttpGet("Destination/{configId}")]
         public IQueryable<Destination> GetDestinationForConfig(int configId)
@@ -71,6 +81,13 @@ namespace RaFilDaAPI.Controllers
         public IQueryable<ConfGroup> GetConfigs_ByGroupID(int groupId)
         {
             return myContext.ConfGroups.FromSqlRaw("select * from ConfGroups where GroupID = {0}", groupId);
+        }
+        
+        [HttpGet]
+        [Route("GetConfigsByCompID/{id}")]
+        public IQueryable<Config> GetConfigs_ByComputer(int id)
+        {
+            return myContext.Configs.FromSqlRaw("select c.* from CompConfs cc inner join Configs c on c.id = cc.ConfigID where CompID = {0}", id);
         }
 
         [HttpPut]
