@@ -37,10 +37,10 @@ namespace RaFilDaAPI.Controllers
             return daemonList;
         }
         
-        [HttpGet("GetConmConfByCompID&ConfID")]
-        public IQueryable<Computer> GetComputers_ByConfigID(int confId, int compId)
+        [HttpGet("GetCompConfByCompID&ConfID")]
+        public IQueryable<CompConf> GetCompConfsByCompID_ConfID(int confId, int compId)
         {
-            return myContext.Computers.FromSqlRaw("select c.ID from CompConfs c where c.ConfigID = {0} AND c.CompID = {1}", confId, compId);
+            return myContext.CompConfs.FromSqlRaw("select * from CompConfs c where c.ConfigID = {0} AND c.CompID = {1}", confId, compId);
         }
     }
 }

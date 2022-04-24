@@ -154,5 +154,33 @@ namespace RaFilDaAPI.Controllers
 
             return Ok(myContext.CompConfs.FromSqlRaw("select * from CompConfs"));
         }
+
+        [HttpDelete]
+        [Route("RemoveSourceFromConfig")]
+        public async Task<ActionResult<List<Config>>> RemoveSourceFromConfig(int sourceId)
+        {
+            var src = await myContext.Source.FindAsync(sourceId);
+            if (src == null)
+                return NotFound();
+
+            myContext.Source.Remove(src);
+            myContext.SaveChanges();
+
+            return Ok(await myContext.Source.ToListAsync());
+        }
+
+        [HttpDelete]
+        [Route("RemoveDestinationFromConfig")]
+        public async Task<ActionResult<List<Destination>>> RemoveDestinationFromConfig(int destId)
+        {
+            var dest = await myContext.Destination.FindAsync(destId);
+            if (dest == null)
+                return NotFound();
+
+            myContext.Destination.Remove(dest);
+            myContext.SaveChanges();
+
+            return Ok(await myContext.Destination.ToListAsync());
+        }
     }
 }
