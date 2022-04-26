@@ -28,7 +28,7 @@ namespace RaFilDaAPI.Entities
             return JwtBuilder.Create()
                       .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
                       .WithSecret(SECRET)
-                      .AddClaim("exp", DateTimeOffset.UtcNow.AddSeconds(30).ToUnixTimeSeconds())
+                      .AddClaim("exp", DateTimeOffset.UtcNow.AddSeconds(3600).ToUnixTimeSeconds())
                       .AddClaim("user_id", user.Id)
                       .Encode();
         }
