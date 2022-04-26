@@ -12,6 +12,7 @@ namespace RaFilDaAPI.Controllers
 {
     [ApiController]
     [Route("Computers")]
+    [Authorize(Role = "admin")]
     public class ComputersController : ControllerBase
     {
         private readonly MyContext myContext;

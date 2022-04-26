@@ -10,6 +10,7 @@ namespace RaFilDaAPI.Controllers
 {
     [ApiController]
     [Route("Groups")]
+    [Authorize(Role = "admin")]
     public class GroupsController : ControllerBase
     {
         private readonly MyContext myContext;
