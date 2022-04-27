@@ -33,9 +33,9 @@ namespace RaFilDaAPI.Controllers
             {
                 return new JsonResult(this.auth.Authenticate(credentials));
             }
-            catch
+            catch(Exception e)
             {
-                return new JsonResult("Invalid username or password") { StatusCode = StatusCodes.Status401Unauthorized };
+                return new JsonResult(e.Message) { StatusCode = StatusCodes.Status401Unauthorized };
             }
         }
     }

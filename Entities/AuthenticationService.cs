@@ -20,17 +20,27 @@ namespace RaFilDaAPI.Entities
 
         public string Authenticate(Credentials credentials)
         {
-            User user = this.context.Users.Where(x => x.Username == credentials.Login && x.Password == credentials.Password).FirstOrDefault();
+            try
+            {
+                User user = this.context.Users.Where(x => x.Username == credentials.Login && x.Password == credentials.Password).FirstOrDefault();
 
-            if (user == null)
-                throw new Exception("invalid user");
-
-            return JwtBuilder.Create()
-                      .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
-                      .WithSecret(SECRET)
-                      .AddClaim("exp", DateTimeOffset.UtcNow.AddSeconds(3600).ToUnixTimeSeconds())
-                      .AddClaim("user_id", user.Id)
-                      .Encode();
+                if (user == null)
+                    throw new UnauthorizedAccessException();
+                
+                return JwtBuilder.Create()
+                    .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
+                    .WithSecret(SECRET)
+                    .AddClaim("exp", DateTimeOffset.UtcNow.AddSeconds(3600).ToUnixTimeSeconds())
+                    .AddClaim("user_id", user.Id)
+                    .Encode();
+            }
+            catch (Exception e)
+            {
+                if (e is UnauthorizedAccessException)
+                    throw new Exception("Invalid username or password!");
+                else
+                    throw new Exception("Failed to connect to database!");
+            }
         }
 
         public bool VerifyToken(string token)
