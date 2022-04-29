@@ -7,28 +7,30 @@ using System.Linq;
 //using RaFilDaAPI.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RaFilDaAPI.Controllers
 {
     [ApiController]
     [Route("Computers")]
-    [Authorize(Role = "admin")]
     public class ComputersController : ControllerBase
     {
         private readonly MyContext myContext;
-
+        
         public ComputersController(MyContext myContext)
         {
             this.myContext = myContext;
         }
 
         [HttpGet]
+        [Authorize(Role = "admin")]
         public async Task<ActionResult<List<Computer>>> GetComputers()
         {
             return Ok(await myContext.Computers.ToListAsync());
         }
 
         [HttpGet("{id}")]
+        [Authorize(Role = "admin")]
         public async Task<ActionResult<Computer>> GetComputer(int id)
         {
             var comp = await myContext.Computers.FindAsync(id);
@@ -46,12 +48,14 @@ namespace RaFilDaAPI.Controllers
         }
         
         [HttpGet("GetComputersByConfigID/{confId}")]
+        [Authorize(Role = "admin")]
         public IQueryable<Computer> GetComputers_ByConfigID(int confId)
         {
             return myContext.Computers.FromSqlRaw("select c.* from CompConfs cc inner join Computers c on c.id = cc.compId where cc.ConfigID = {0}", confId);
         }
         
         [HttpGet("GetComputersByGroupID/{groupId}")]
+        [Authorize(Role = "admin")]
         public IQueryable<Computer> GetComputers_ByGroupID(int groupId)
         {
             return myContext.Computers.FromSqlRaw("select c.* from CompGroups cc inner join Computers c on c.id = cc.compId where cc.groupId = {0}", groupId);
@@ -69,6 +73,7 @@ namespace RaFilDaAPI.Controllers
 
         [HttpPost]
         [Route("AddComputerToGroup")]
+        [Authorize(Role = "admin")]
         public ActionResult<IQueryable<CompGroup>> AddComputerToGroup(int compID, int groupID)
         {
             if(compID == 0 || groupID == 0)
@@ -87,6 +92,7 @@ namespace RaFilDaAPI.Controllers
 
         [HttpPost]
         [Route("AddComputerToConfig")]
+        [Authorize(Role = "admin")]
         public ActionResult<IQueryable<CompConf>> AddComputerToConfig(int compID, int configID)
         {
             if(compID == 0 || configID == 0)
@@ -105,6 +111,7 @@ namespace RaFilDaAPI.Controllers
 
         [HttpPut]
         [Route("UpdateComputer")]
+        [Authorize(Role = "admin")]
         public async Task<ActionResult<List<Computer>>> UpdateComputer(Computer computer, int id)
         {
             var dbComputer = await myContext.Computers.FindAsync(id);
@@ -122,6 +129,7 @@ namespace RaFilDaAPI.Controllers
 
         [HttpPut]
         [Route("UpdateLastSeen")]
+        [Authorize(Role = "admin")]
         public async Task<ActionResult<List<Computer>>> UpdateLastSeen(int id)
         {
             var computer = await myContext.Computers.FindAsync(id);
@@ -130,6 +138,7 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Role = "admin")]
         public async Task<ActionResult<List<Computer>>> DeleteComputer(int id)
         {
             var computer = await myContext.Computers.FindAsync(id);
@@ -144,6 +153,7 @@ namespace RaFilDaAPI.Controllers
 
         [HttpDelete]
         [Route("RemoveComputerFromGroup")]
+        [Authorize(Role = "admin")]
         public ActionResult<IQueryable<CompGroup>> RemoveComputerFromGroup(int compID, int groupID)
         {
             if(compID == 0 || groupID == 0)
@@ -163,6 +173,7 @@ namespace RaFilDaAPI.Controllers
 
         [HttpDelete]
         [Route("RemoveComputerFromConfig")]
+        [Authorize(Role = "admin")]
         public ActionResult<IQueryable<CompConf>> RemoveComputerFromConfig(int compID, int configID)
         {
             if(compID == 0 || configID == 0)

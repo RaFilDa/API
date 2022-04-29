@@ -10,7 +10,6 @@ namespace RaFilDaAPI.Controllers
 {
     [ApiController]
     [Route("Reports")]
-    [Authorize(Role = "admin")]
     public class ReportsController : ControllerBase
     {
         private readonly MyContext myContext;
@@ -21,6 +20,7 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Role = "admin")]
         public async Task<ActionResult<List<ReportDetail>>> GetReports()
         {
             return Ok(myContext.ReportDetails.FromSqlRaw("select r.id, r.date, cf.Name, cp.MAC, r.Type as backup, r.IsError as state, r.Message from Reports r inner join CompConfs cc on cc.id = r.CompConfID inner join Computers cp on cp.ID = cc.CompID inner join Configs cf on cf.id = cc.ConfigID"));
@@ -37,6 +37,7 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Role = "admin")]
         public async Task<ActionResult<List<Report>>> DeleteReport(int id)
         {
             var rep = await myContext.Reports.FindAsync(id);

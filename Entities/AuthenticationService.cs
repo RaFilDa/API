@@ -53,12 +53,6 @@ namespace RaFilDaAPI.Entities
                              .WithSecret(SECRET)
                              .MustVerifySignature()
                              .Decode(token);
-                
-                Console.WriteLine(JwtBuilder.Create()
-                    .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
-                    .WithSecret(SECRET)
-                    .AddClaim("role", "daemon")
-                    .Encode());
 
                 return json;
             }

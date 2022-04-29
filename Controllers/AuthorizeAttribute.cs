@@ -11,9 +11,10 @@ using RaFilDaAPI.Entities;
 namespace RaFilDaAPI.Controllers
 {
     
-    public class AuthorizeAttribute : Attribute, IAuthorizationFilter
+    public class AuthorizeAttribute : Attribute, IAuthorizationFilter, IOrderedFilter
     {
         public string Role { get; set; }
+        public int Order { get; set; }
 
         /*private readonly MyContext myContext;
         private AuthenticationService auth;
@@ -36,11 +37,9 @@ namespace RaFilDaAPI.Controllers
             if (result == "")
             {
                 context.Result = new JsonResult("authentication failed") { StatusCode = StatusCodes.Status401Unauthorized };
+                return;
             }
-            
-            Console.WriteLine(JsonConvert.DeserializeObject<Result>(result).role);
-            Console.WriteLine(Role);
-            
+
             if(!Role.Split(',').Contains(JsonConvert.DeserializeObject<Result>(result).role))
                 context.Result = new JsonResult("authentication failed") { StatusCode = StatusCodes.Status401Unauthorized };
         }
