@@ -27,6 +27,7 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Role = "admin,daemon")]
         public async Task<ActionResult<List<Report>>> AddReport(Report report)
         {
             myContext.Reports.Add(report);

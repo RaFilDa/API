@@ -32,6 +32,7 @@ namespace RaFilDaAPI.Entities
                     .WithSecret(SECRET)
                     .AddClaim("exp", DateTimeOffset.UtcNow.AddSeconds(3600).ToUnixTimeSeconds())
                     .AddClaim("user_id", user.Id)
+                    .AddClaim("role", "admin")
                     .Encode();
             }
             catch (Exception e)
@@ -43,7 +44,7 @@ namespace RaFilDaAPI.Entities
             }
         }
 
-        public bool VerifyToken(string token)
+        public string VerifyToken(string token)
         {
             try
             {
@@ -52,12 +53,18 @@ namespace RaFilDaAPI.Entities
                              .WithSecret(SECRET)
                              .MustVerifySignature()
                              .Decode(token);
+                
+                Console.WriteLine(JwtBuilder.Create()
+                    .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
+                    .WithSecret(SECRET)
+                    .AddClaim("role", "daemon")
+                    .Encode());
 
-                return true;
+                return json;
             }
             catch
             {
-                return false;
+                return "";
             }
         }
     }

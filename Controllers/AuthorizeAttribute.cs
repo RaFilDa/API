@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using RaFilDaAPI.Entities;
 
 namespace RaFilDaAPI.Controllers
@@ -30,10 +31,25 @@ namespace RaFilDaAPI.Controllers
         {
             string token = context.HttpContext.Request.Headers["Authorization"].ToString().Split(' ').Last();
 
-            if (!this.auth.VerifyToken(token))
+            string result = this.auth.VerifyToken(token);
+            
+            if (result == "")
             {
                 context.Result = new JsonResult("authentication failed") { StatusCode = StatusCodes.Status401Unauthorized };
             }
+            
+            Console.WriteLine(JsonConvert.DeserializeObject<Result>(result).role);
+            Console.WriteLine(Role);
+            
+            if(!Role.Split(',').Contains(JsonConvert.DeserializeObject<Result>(result).role))
+                context.Result = new JsonResult("authentication failed") { StatusCode = StatusCodes.Status401Unauthorized };
         }
+    }
+
+    record Result
+    {
+        public string? exp { get; set; }
+        public string? user_id { get; set; }
+        public string role { get; set; }
     }
 }

@@ -8,8 +8,7 @@ namespace RaFilDaAPI.Controllers
 {
     [ApiController]
     [Route("Daemon")]
-    [Authorize(Role = "admin")]
-
+    [Authorize(Role = "admin,daemon")]
     public class DaemonController : ControllerBase
     {
         private readonly MyContext myContext;

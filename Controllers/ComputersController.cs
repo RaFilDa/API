@@ -39,6 +39,7 @@ namespace RaFilDaAPI.Controllers
         }
         
         [HttpGet("GetComputersByMAC/{MAC}")]
+        [Authorize(Role = "admin,daemon")]
         public IQueryable<Computer> GetComputers_ByMac(string MAC)
         {
             return myContext.Computers.FromSqlRaw("select c.* from Computers c where c.MAC = {0}", MAC);
@@ -57,6 +58,7 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Role = "admin,daemon")]
         public async Task<ActionResult<List<Computer>>> AddComputer(Computer computer)
         {
             myContext.Computers.Add(computer);
