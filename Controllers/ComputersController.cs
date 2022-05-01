@@ -134,6 +134,7 @@ namespace RaFilDaAPI.Controllers
         {
             var computer = await myContext.Computers.FindAsync(id);
             computer.LastSeen = DateTime.UtcNow;
+            myContext.SaveChanges();
             return Ok(await myContext.Computers.ToListAsync());
         }
 
