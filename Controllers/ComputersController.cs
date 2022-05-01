@@ -129,7 +129,7 @@ namespace RaFilDaAPI.Controllers
 
         [HttpPut]
         [Route("UpdateLastSeen")]
-        [Authorize(Role = "admin")]
+        [Authorize(Role = "admin,daemon")]
         public async Task<ActionResult<List<Computer>>> UpdateLastSeen(int id)
         {
             var computer = await myContext.Computers.FindAsync(id);
