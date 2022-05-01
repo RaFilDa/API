@@ -6,7 +6,6 @@ namespace RaFilDaAPI.Entities
     {
         public int Id { get; init; }
         public string Name { get; set; }
-        public int UserID { get; set; }
         public int RetentionSize { get; set; }
         public string BackupFrequency { get; set; }
         public string Cron { get; set; }

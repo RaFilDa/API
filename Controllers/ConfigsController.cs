@@ -100,7 +100,6 @@ namespace RaFilDaAPI.Controllers
                 return NotFound();
             
             dbConf.Name = config.Name;
-            dbConf.UserID = config.UserID;
             dbConf.RetentionSize = config.RetentionSize;
             dbConf.BackupFrequency = config.BackupFrequency;
             dbConf.Cron = config.Cron;
