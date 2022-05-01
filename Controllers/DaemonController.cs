@@ -23,7 +23,7 @@ namespace RaFilDaAPI.Controllers
         {
             var daemonList = new List<DaemonInfo>();
             var configList = myContext.Configs.FromSqlRaw(
-                "select c.ID, c.Name, c.UserID, c.RetentionSize, c.BackupFrequency, c.Cron, c.TimeZone, c.PackageSize, c.BackupType, c.FileType from Configs c inner join CompConfs cc on c.ID = cc.ConfigID where cc.CompID = {0}",
+                "select c.ID, c.Name, c.RetentionSize, c.BackupFrequency, c.Cron, c.TimeZone, c.PackageSize, c.BackupType, c.FileType from Configs c inner join CompConfs cc on c.ID = cc.ConfigID where cc.CompID = {0}",
                 ComputerID).ToList();
             foreach (var config in configList)
             {
