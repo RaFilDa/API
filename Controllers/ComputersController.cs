@@ -133,8 +133,8 @@ namespace RaFilDaAPI.Controllers
         public async Task<ActionResult<List<Computer>>> UpdateLastSeen(int id)
         {
             var computer = await myContext.Computers.FindAsync(id);
-            computer.LastSeen = DateTime.UtcNow;
-            myContext.SaveChanges();
+            computer.LastSeen = DateTime.UtcNow.ToString();
+            await myContext.SaveChangesAsync();
             return Ok(await myContext.Computers.ToListAsync());
         }
 
