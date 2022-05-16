@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Quartz;
 
 namespace RaFilDaAPI
 {
@@ -21,6 +16,22 @@ namespace RaFilDaAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddQuartz(q =>
+                    {
+                        q.UseMicrosoftDependencyInjectionScopedJobFactory();
+
+                        var JobKey = new JobKey("MailJob");
+                        q.AddJob<MailJob>(opts => opts.WithIdentity(JobKey));
+                        q.AddTrigger(opts => opts
+                            .ForJob(JobKey)
+                            .WithIdentity("t_MailJob")
+                            .WithCronSchedule("0 0 0 * * ?")
+                        );
+                    });
+                    services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
                 });
     }
 }
