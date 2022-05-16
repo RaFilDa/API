@@ -1,3 +1,4 @@
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Quartz;
@@ -24,11 +25,12 @@ namespace RaFilDaAPI
                         q.UseMicrosoftDependencyInjectionScopedJobFactory();
 
                         var JobKey = new JobKey("MailJob");
+                        string[] cron = File.ReadAllLines(@".\mailcron.txt");
                         q.AddJob<MailJob>(opts => opts.WithIdentity(JobKey));
                         q.AddTrigger(opts => opts
                             .ForJob(JobKey)
                             .WithIdentity("t_MailJob")
-                            .WithCronSchedule("0 0 0 * * ?")
+                            .WithCronSchedule(cron[0])
                         );
                     });
                     services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);

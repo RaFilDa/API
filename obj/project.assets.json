@@ -570,6 +570,29 @@
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
       },
+      "Microsoft.Extensions.Diagnostics.HealthChecks/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Options": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/2.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {}
+        }
+      },
       "Microsoft.Extensions.FileProviders.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -968,6 +991,62 @@
         },
         "runtime": {
           "lib/netstandard1.3/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Quartz/3.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
+          "System.Configuration.ConfigurationManager": "4.7.0",
+          "System.Diagnostics.DiagnosticSource": "4.7.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Quartz.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Quartz.dll": {}
+        }
+      },
+      "Quartz.AspNetCore/3.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Diagnostics.HealthChecks": "2.2.0",
+          "Quartz.Extensions.Hosting": "3.4.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Quartz.AspNetCore.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Quartz.AspNetCore.dll": {}
+        }
+      },
+      "Quartz.Extensions.DependencyInjection/3.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "2.1.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Options": "2.1.1",
+          "Quartz": "3.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Quartz.Extensions.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Quartz.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "Quartz.Extensions.Hosting/3.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Hosting.Abstractions": "2.1.1",
+          "Quartz.Extensions.DependencyInjection": "3.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Quartz.Extensions.Hosting.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Quartz.Extensions.Hosting.dll": {}
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -3431,6 +3510,32 @@
         "version.txt"
       ]
     },
+    "Microsoft.Extensions.Diagnostics.HealthChecks/2.2.0": {
+      "sha512": "p9njfetdebuplBCkIJPqyxsUIOBf/7B/RhPXZnFjh+/wqWNRqhP/1s18q1me9XP0l8uCD8TqJRPC+L0MCoUGRA==",
+      "type": "package",
+      "path": "microsoft.extensions.diagnostics.healthchecks/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.xml",
+        "microsoft.extensions.diagnostics.healthchecks.2.2.0.nupkg.sha512",
+        "microsoft.extensions.diagnostics.healthchecks.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/2.2.0": {
+      "sha512": "cO6f4csTakJXuLWnU/p5mfQInyNq5sSi4mS2YtQZcGoHynU6P/TD6gjqt1TRnVfwuZLw3tmmw2ipFrHbBUqWew==",
+      "type": "package",
+      "path": "microsoft.extensions.diagnostics.healthchecks.abstractions/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.xml",
+        "microsoft.extensions.diagnostics.healthchecks.abstractions.2.2.0.nupkg.sha512",
+        "microsoft.extensions.diagnostics.healthchecks.abstractions.nuspec"
+      ]
+    },
     "Microsoft.Extensions.FileProviders.Abstractions/2.2.0": {
       "sha512": "EcnaSsPTqx2MGnHrmWOD0ugbuuqVT8iICqSqPzi45V5/MA1LjUNb0kwgcxBGqizV1R+WeBK7/Gw25Jzkyk9bIw==",
       "type": "package",
@@ -3997,6 +4102,68 @@
         "newtonsoft.json.10.0.3.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "tools/install.ps1"
+      ]
+    },
+    "Quartz/3.4.0": {
+      "sha512": "N8350OAlQhd8zKg0ARFikGjh3bfAW/CF/KVxu2fTIlAALB/oC1eg54n/QAPYR5ryHuYyDr5G8/Qa4k+D/7OFRQ==",
+      "type": "package",
+      "path": "quartz/3.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net462/Quartz.dll",
+        "lib/net462/Quartz.xml",
+        "lib/net472/Quartz.dll",
+        "lib/net472/Quartz.xml",
+        "lib/netstandard2.0/Quartz.dll",
+        "lib/netstandard2.0/Quartz.xml",
+        "quartz-logo-small.png",
+        "quartz.3.4.0.nupkg.sha512",
+        "quartz.nuspec"
+      ]
+    },
+    "Quartz.AspNetCore/3.4.0": {
+      "sha512": "b4ULEFXINPmejEhgp7SF2p/UYMThsDT9UpgYDHIitHOZGZiZhMETTCQZi7C8HM2PzEvT0UE9KVFgCwZqr3PhsA==",
+      "type": "package",
+      "path": "quartz.aspnetcore/3.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/Quartz.AspNetCore.dll",
+        "lib/netcoreapp3.1/Quartz.AspNetCore.xml",
+        "lib/netstandard2.0/Quartz.AspNetCore.dll",
+        "lib/netstandard2.0/Quartz.AspNetCore.xml",
+        "quartz-logo-small.png",
+        "quartz.aspnetcore.3.4.0.nupkg.sha512",
+        "quartz.aspnetcore.nuspec"
+      ]
+    },
+    "Quartz.Extensions.DependencyInjection/3.4.0": {
+      "sha512": "fYIHYFwVnzcwmkvE/cjx/YGmU+rZ5OkjuHmdNJz49gxA/dFnm8foSFxCmzYqyjLpHqQAbteOf1+43cROSvvmFw==",
+      "type": "package",
+      "path": "quartz.extensions.dependencyinjection/3.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Quartz.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Quartz.Extensions.DependencyInjection.xml",
+        "quartz-logo-small.png",
+        "quartz.extensions.dependencyinjection.3.4.0.nupkg.sha512",
+        "quartz.extensions.dependencyinjection.nuspec"
+      ]
+    },
+    "Quartz.Extensions.Hosting/3.4.0": {
+      "sha512": "hdecxRzfafiHd33bAAV0dc7B2cmwJKchA0q3mNPnzye2zvc8h5w7wSP4WSUydfwht3DAAvoE8hg+iYH6SzFCbA==",
+      "type": "package",
+      "path": "quartz.extensions.hosting/3.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Quartz.Extensions.Hosting.dll",
+        "lib/netstandard2.0/Quartz.Extensions.Hosting.xml",
+        "quartz-logo-small.png",
+        "quartz.extensions.hosting.3.4.0.nupkg.sha512",
+        "quartz.extensions.hosting.nuspec"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -8526,6 +8693,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.10",
       "MySql.Data >= 8.0.28",
       "MySql.EntityFrameworkCore >= 5.0.10",
+      "Quartz.AspNetCore >= 3.4.0",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
@@ -8535,11 +8703,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
+      "projectUniqueName": "d:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
       "projectName": "RaFilDaAPI",
-      "projectPath": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
+      "projectPath": "d:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
       "packagesPath": "C:\\Users\\Danny\\.nuget\\packages\\",
-      "outputPath": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\obj\\",
+      "outputPath": "d:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8609,6 +8777,10 @@
           "MySql.EntityFrameworkCore": {
             "target": "Package",
             "version": "[5.0.10, )"
+          },
+          "Quartz.AspNetCore": {
+            "target": "Package",
+            "version": "[3.4.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
