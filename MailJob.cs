@@ -56,7 +56,7 @@ namespace RaFilDaAPI
             var inlineLogo = new LinkedResource(@".\Logo.png", "image/png");
             inlineLogo.ContentId = Guid.NewGuid().ToString();
             body += "<br /> <br /> <br /> <br /> ";
-            body += string.Format(@"<br /> <img src=""cid:{0}"" />", inlineLogo.ContentId);
+            body += (@"<br /> <img src=""cid:{0}"" />", inlineLogo.ContentId).ToString();
             var view = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
             view.LinkedResources.Add(inlineLogo);
             mail.AlternateViews.Add(view);
