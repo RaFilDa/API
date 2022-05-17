@@ -25,12 +25,12 @@ namespace RaFilDaAPI
                         q.UseMicrosoftDependencyInjectionScopedJobFactory();
 
                         var JobKey = new JobKey("MailJob");
-                        string[] cron = File.ReadAllLines(@".\mailcron.txt");
+                        string cron = File.ReadAllText(@".\mailCron.txt");
                         q.AddJob<MailJob>(opts => opts.WithIdentity(JobKey));
                         q.AddTrigger(opts => opts
                             .ForJob(JobKey)
                             .WithIdentity("t_MailJob")
-                            .WithCronSchedule(cron[0])
+                            .WithCronSchedule(cron)
                         );
                     });
                     services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);

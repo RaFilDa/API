@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj": {}
+    "D:\\RaFilDa\\API\\API\\RaFilDaAPI.csproj": {}
   },
   "projects": {
-    "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj": {
+    "D:\\RaFilDa\\API\\API\\RaFilDaAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
+        "projectUniqueName": "D:\\RaFilDa\\API\\API\\RaFilDaAPI.csproj",
         "projectName": "RaFilDaAPI",
-        "projectPath": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
-        "packagesPath": "C:\\Users\\Danny\\.nuget\\packages\\",
-        "outputPath": "D:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\obj\\",
+        "projectPath": "D:\\RaFilDa\\API\\API\\RaFilDaAPI.csproj",
+        "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
+        "outputPath": "D:\\RaFilDa\\API\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -82,6 +82,10 @@
               "target": "Package",
               "version": "[5.0.10, )"
             },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
             "Quartz.AspNetCore": {
               "target": "Package",
               "version": "[3.4.0, )"
@@ -109,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

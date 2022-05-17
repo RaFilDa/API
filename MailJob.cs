@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -14,7 +15,8 @@ namespace RaFilDaAPI
     {
         private readonly MyContext myContext;
         public List<string> messageList = new List<string>{};
-        public string body = "";
+        public string body;
+        public int lastSentId;
 
         public MailJob(MyContext myContext)
         {
@@ -22,11 +24,19 @@ namespace RaFilDaAPI
         }
         public Task Execute(IJobExecutionContext context)
         {
+            myContext.SaveChanges();
+
             string subject = "Backup Error Reports - " + DateTime.Now.ToString("d/M/yyyy");
+
+            try {
+            lastSentId = Convert.ToInt32(File.ReadAllText("mailInfo.txt"));
             foreach (Report report in myContext.Reports.ToList())
             {
-                if (report.IsError) messageList.Add(report.Message);
+                if (report.IsError && report.Id > lastSentId) messageList.Add(report.Message);
             }
+            File.WriteAllText("mailInfo.txt", myContext.Reports.ToList().Last().Id.ToString());
+            }
+            catch { Debug.WriteLine("Nelze se připojit k databázi"); }
             if (messageList.Count == 0)
             { body = "<h1>There were no error reports.</h1>"; }
             else
@@ -35,12 +45,12 @@ namespace RaFilDaAPI
             List<User> recipients = myContext.Users.ToList();
             MailMessage mail = new MailMessage();
             mail.IsBodyHtml = true;
-            SmtpClient SmtpServer = new SmtpClient("smtp.seznam.cz");
+            SmtpClient smtpServer = new SmtpClient("smtp.seznam.cz");
             mail.From = new MailAddress(from);
             foreach (User recipient in recipients)
             {
                 try{ mail.To.Add(recipient.Email); }
-                catch{ /* Neplatný email */ };
+                catch{ Debug.WriteLine("Neplatný email"); };
             }
 
             var inlineLogo = new LinkedResource(@".\Logo.png", "image/png");
@@ -53,11 +63,11 @@ namespace RaFilDaAPI
 
             mail.Subject = subject;
             mail.Body = body;
-            SmtpServer.Port = 587; 
-            SmtpServer.Credentials = new System.Net.NetworkCredential("RaFilDaReports@post.cz", "123456Ab");
-            SmtpServer.EnableSsl = false;
-            try { SmtpServer.Send(mail); }
-            catch { /* Žádný příjemce */ }
+            smtpServer.Port = 587; 
+            smtpServer.Credentials = new System.Net.NetworkCredential("RaFilDaReports@post.cz", "123456Ab");
+            smtpServer.EnableSsl = false;
+            try { smtpServer.Send(mail); }
+            catch { Debug.WriteLine("Žádný příjemce"); }
             messageList.Clear();
             body = "";
             return Task.CompletedTask;

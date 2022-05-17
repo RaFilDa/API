@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace RaFilDaAPI.Controllers
 {
@@ -24,6 +25,14 @@ namespace RaFilDaAPI.Controllers
         public async Task<ActionResult<List<ReportDetail>>> GetReports()
         {
             return Ok(myContext.ReportDetails.FromSqlRaw("select r.id, r.date, cf.Name, cp.MAC, r.Type as backup, r.IsError as state, r.Message from Reports r inner join CompConfs cc on cc.id = r.CompConfID inner join Computers cp on cp.ID = cc.CompID inner join Configs cf on cf.id = cc.ConfigID order by r.Date desc"));
+        }
+
+        [HttpPost]
+        [Authorize(Role = "admin")]
+        public async Task<ActionResult> UpdateCron(string cron)
+        {
+            System.IO.File.WriteAllText("mailCron.txt", cron);
+            return Ok();
         }
 
         [HttpPost]
