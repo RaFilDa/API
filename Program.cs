@@ -24,11 +24,11 @@ namespace RaFilDaAPI
                     {
                         q.UseMicrosoftDependencyInjectionScopedJobFactory();
 
-                        var JobKey = new JobKey("MailJob");
-                        string[] cron = File.ReadAllLines(@".\mailcron.txt");
-                        q.AddJob<MailJob>(opts => opts.WithIdentity(JobKey));
+                        var jobKey = new JobKey("MailJob");
+                        var cron = File.ReadAllLines(@"..\mailcron.txt");
+                        q.AddJob<MailJob>(opts => opts.WithIdentity(jobKey));
                         q.AddTrigger(opts => opts
-                            .ForJob(JobKey)
+                            .ForJob(jobKey)
                             .WithIdentity("t_MailJob")
                             .WithCronSchedule(cron[0])
                         );

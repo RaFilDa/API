@@ -13,8 +13,8 @@ namespace RaFilDaAPI
     public class MailJob : IJob
     {
         private readonly MyContext myContext;
-        public List<string> messageList = new List<string>{};
-        public string body = "";
+        private List<string> messageList = new List<string>{};
+        private string body;
 
         public MailJob(MyContext myContext)
         {
@@ -35,7 +35,7 @@ namespace RaFilDaAPI
             List<User> recipients = myContext.Users.ToList();
             MailMessage mail = new MailMessage();
             mail.IsBodyHtml = true;
-            SmtpClient SmtpServer = new SmtpClient("smtp.seznam.cz");
+            SmtpClient smtpServer = new SmtpClient("smtp.seznam.cz");
             mail.From = new MailAddress(from);
             foreach (User recipient in recipients)
             {
@@ -46,17 +46,17 @@ namespace RaFilDaAPI
             var inlineLogo = new LinkedResource(@".\Logo.png", "image/png");
             inlineLogo.ContentId = Guid.NewGuid().ToString();
             body += "<br /> <br /> <br /> <br /> ";
-            body += string.Format(@"<br /> <img src=""cid:{0}"" />", inlineLogo.ContentId);
+            body += (@"<br /> <img src=""cid:{0}"" />", inlineLogo.ContentId).ToString();
             var view = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
             view.LinkedResources.Add(inlineLogo);
             mail.AlternateViews.Add(view);
 
             mail.Subject = subject;
             mail.Body = body;
-            SmtpServer.Port = 587; 
-            SmtpServer.Credentials = new System.Net.NetworkCredential("RaFilDaReports@post.cz", "123456Ab");
-            SmtpServer.EnableSsl = false;
-            try { SmtpServer.Send(mail); }
+            smtpServer.Port = 587; 
+            smtpServer.Credentials = new System.Net.NetworkCredential("RaFilDaReports@post.cz", "123456Ab");
+            smtpServer.EnableSsl = false;
+            try { smtpServer.Send(mail); }
             catch { /* Žádný příjemce */ }
             messageList.Clear();
             body = "";
