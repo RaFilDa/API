@@ -28,7 +28,7 @@ namespace RaFilDaAPI
                         string cron = File.ReadAllText(@".\mailCron.txt");
                         q.AddJob<MailJob>(opts => opts.WithIdentity(JobKey));
                         q.AddTrigger(opts => opts
-                            .ForJob(jobKey)
+                            .ForJob(JobKey)
                             .WithIdentity("t_MailJob")
                             .WithCronSchedule(cron)
                         );
