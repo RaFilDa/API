@@ -17,6 +17,7 @@ namespace RaFilDaAPI
             _sheduler = scheduler;
             _sheduler.Start();
             CreateJob();
+            CreateHostBuilder(args).Build().Run();
 
             /*
             var cron = File.ReadAllText(@".\mailCron.txt");
@@ -41,5 +42,11 @@ namespace RaFilDaAPI
                 .WithCronSchedule(cron)
                 .Build();
         }
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

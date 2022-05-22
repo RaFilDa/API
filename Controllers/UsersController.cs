@@ -29,6 +29,9 @@ namespace RaFilDaAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<List<User>>> AddUser(User user)
         {
+            string salt = BCrypt.Net.BCrypt.GenerateSalt(6);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, salt);
+            Console.WriteLine(user.Password);
             myContext.Users.Add(user);
             await myContext.SaveChangesAsync();
 

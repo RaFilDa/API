@@ -1,28 +1,31 @@
 using JWT.Algorithms;
 using JWT.Builder;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
+using BCrypt.Net;
 
 namespace RaFilDaAPI.Entities
 {
     public class AuthenticationService
     {
-        const string SECRET = "foo-bar";
+        public const string SECRET = "foo-bar";
 
-        private readonly MyContext context; 
+        private readonly MyContext myContext; 
 
         public AuthenticationService(MyContext myContext)
         {
-            this.context = myContext;
+            this.myContext = myContext;
         }
 
         public string Authenticate(Credentials credentials)
         {
             try
             {
-                User user = this.context.Users.Where(x => x.Username == credentials.Login && x.Password == credentials.Password).FirstOrDefault();
+                User user = this.myContext.Users.ToList().FirstOrDefault(x => x.Username == credentials.Login &&
+                                                                            BCrypt.Net.BCrypt.Verify(credentials.Password, x.Password, false, HashType.SHA384));
 
                 if (user == null)
                     throw new UnauthorizedAccessException();
@@ -48,6 +51,11 @@ namespace RaFilDaAPI.Entities
         {
             try
             {
+                HttpClient http = new HttpClient(new HttpClientHandler() { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator });;
+                Task<string> result = http.PostAsync("https://localhost:5001/api/Sessions/banned?token=" + token, null).Result.Content.ReadAsStringAsync();
+                if (Boolean.Parse(result.Result))
+                    return "";
+                
                 string json = JwtBuilder.Create()
                              .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
                              .WithSecret(SECRET)

@@ -11,22 +11,19 @@ using RaFilDaAPI.Entities;
 namespace RaFilDaAPI.Controllers
 {
     
-    public class AuthorizeAttribute : Attribute, IAuthorizationFilter, IOrderedFilter
+    public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
-        public string Role { get; set; }
-        public int Order { get; set; }
-
-        /*private readonly MyContext myContext;
-        private AuthenticationService auth;
-
-        public AuthorizeAttribute(MyContext myContext)
-        {
-            this.myContext = myContext;
-            this.auth = new AuthenticationService(myContext);
-        }*/
+         public string Role { get; set; }
+         private readonly MyContext myContext;
+         // private AuthenticationService auth;
+         // public AuthorizeAttribute(MyContext myContext)
+         // {
+         //     this.myContext = myContext;
+         //     this.auth = new AuthenticationService(myContext);
+         // }
 
 
-        private AuthenticationService auth = new AuthenticationService(null);
+        private AuthenticationService auth = new (null);
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {

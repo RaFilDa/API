@@ -18,5 +18,7 @@ namespace RaFilDaAPI
         public DbSet<Destination> Destination { get; set; }
         public DbSet<Source> Source { get; set; }
         public DbSet<ReportDetail> ReportDetails { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+        public DbSet<BannedSession> BannedSessions { get; set; }
     }
 }
