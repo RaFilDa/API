@@ -9,16 +9,9 @@ namespace RaFilDaAPI
 {
     public class Program
     {
-        public static IScheduler _sheduler = null;
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
-            
-            ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
-            IScheduler scheduler = schedulerFactory.GetScheduler().Result;
-            _sheduler = scheduler;
-            _sheduler.Start();
-            CreateJob();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -26,29 +19,23 @@ namespace RaFilDaAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddQuartz(q =>
+                    {
+                        q.UseMicrosoftDependencyInjectionScopedJobFactory();
+
+                        var JobKey = new JobKey("MailJob");
+                        string cron = File.ReadAllText(@".\mailCron.txt");
+                        q.AddJob<MailJob>(opts => opts.WithIdentity(JobKey));
+                        q.AddTrigger(opts => opts
+                            .ForJob(JobKey)
+                            .WithIdentity("t_MailJob")
+                            .WithCronSchedule(cron)
+                        );
+                    });
+                    services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
                 });
-
-        /*
-        var cron = File.ReadAllText(@".\mailCron.txt");
-        ITrigger newTrigger = TriggerBuilder.Create()
-            .ForJob("MailJob")
-            .WithIdentity("t_MailJob")
-            .WithCronSchedule(cron)
-            .Build();
-        _sheduler.RescheduleJob(new TriggerKey("t_MailJob"), newTrigger); */
-        
-        public static void CreateJob()
-        {
-            var cron = File.ReadAllText(@".\mailCron.txt");
-            IJobDetail job = JobBuilder.Create<MailJob>()
-                .WithIdentity("MailJob")
-                .Build();
-
-            ITrigger trigger = TriggerBuilder.Create()
-                .ForJob("MailJob")
-                .WithIdentity("t_MailJob")
-                .WithCronSchedule(cron)
-                .Build();
-        }
     }
 }
