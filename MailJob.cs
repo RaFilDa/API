@@ -45,7 +45,7 @@ namespace RaFilDaAPI
             List<User> recipients = myContext.Users.ToList();
             MailMessage mail = new MailMessage();
             mail.IsBodyHtml = true;
-            SmtpClient smtpServer = new SmtpClient("smtp.seznam.cz");
+            SmtpClient smtpServer = new SmtpClient("192.168.160.128");
             mail.From = new MailAddress(from);
             foreach (User recipient in recipients)
             {
@@ -63,11 +63,11 @@ namespace RaFilDaAPI
 
             mail.Subject = subject;
             mail.Body = body;
-            smtpServer.Port = 587; 
-            smtpServer.Credentials = new System.Net.NetworkCredential("RaFilDaReports@post.cz", "123456Ab");
+            smtpServer.Port = 587;
+            smtpServer.Credentials = new System.Net.NetworkCredential("noreply@rafilda.cz", "123456Ab");
             smtpServer.EnableSsl = false;
             try { smtpServer.Send(mail); }
-            catch { Debug.WriteLine("Žádný příjemce"); }
+            catch(Exception e) { Debug.WriteLine("Žádný příjemce"); }
             messageList.Clear();
             body = "";
             return Task.CompletedTask;
