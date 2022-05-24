@@ -575,3 +575,4 @@ D:\RaFilDa\API\API\obj\Debug\net5.0\refint\RaFilDaAPI.dll
 D:\RaFilDa\API\API\obj\Debug\net5.0\RaFilDaAPI.pdb
 D:\RaFilDa\API\API\obj\Debug\net5.0\RaFilDaAPI.genruntimeconfig.cache
 D:\RaFilDa\API\API\obj\Debug\net5.0\ref\RaFilDaAPI.dll
+D:\Škola\PRG\Tretak\ProjektRafilda\API\bin\Debug\net5.0\BCrypt.Net-Next.dll

@@ -32,6 +32,16 @@ namespace RaFilDaAPI.Controllers
         public async Task<ActionResult> UpdateCron(string cron)
         {
             System.IO.File.WriteAllText("mailCron.txt", cron);
+            Scheduler.CreateJob();
+            return Ok();
+        }
+
+        [HttpPost("/mailsettings")]
+        [Authorize(Role = "admin")]
+        public async Task<ActionResult> UpdateMailSettings(string[] settings)
+        {
+             // je potreba to udelat tak nejak aby to skiplo 1. hodnotu ta s tim nema nic spolecnyho
+            System.IO.File.WriteAllLines("mailInfo.txt", settings);
             return Ok();
         }
 
