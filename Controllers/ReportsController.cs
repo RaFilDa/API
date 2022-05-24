@@ -32,7 +32,6 @@ namespace RaFilDaAPI.Controllers
         public async Task<ActionResult> UpdateCron(string cron)
         {
             System.IO.File.WriteAllText("mailCron.txt", cron);
-            Scheduler.CreateJob();
             return Ok();
         }
 
