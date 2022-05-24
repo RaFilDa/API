@@ -39,8 +39,10 @@ namespace RaFilDaAPI.Controllers
         [Authorize(Role = "admin")]
         public async Task<ActionResult> UpdateMailSettings(string[] settings)
         {
-             // je potreba to udelat tak nejak aby to skiplo 1. hodnotu ta s tim nema nic spolecnyho
-            System.IO.File.WriteAllLines("mailInfo.txt", settings);
+            // je potreba to udelat tak nejak aby to skiplo 1. hodnotu ta s tim nema nic spolecnyho
+            var fileArr = System.IO.File.ReadAllLines("mailInfo.txt").Take(1);
+            fileArr = fileArr.Concat(settings);
+            System.IO.File.WriteAllLines("mailInfo.txt", fileArr);
             return Ok();
         }
 
