@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "BCrypt.Net-Next/4.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/BCrypt.Net-Next.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/BCrypt.Net-Next.dll": {}
+        }
+      },
       "BouncyCastle.NetCore/1.8.5": {
         "type": "package",
         "compile": {
@@ -2716,6 +2725,37 @@
     }
   },
   "libraries": {
+    "BCrypt.Net-Next/4.0.3": {
+      "sha512": "W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
+      "type": "package",
+      "path": "bcrypt.net-next/4.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bcrypt.net-next.4.0.3.nupkg.sha512",
+        "bcrypt.net-next.nuspec",
+        "ico.png",
+        "lib/net20/BCrypt.Net-Next.dll",
+        "lib/net20/BCrypt.Net-Next.xml",
+        "lib/net35/BCrypt.Net-Next.dll",
+        "lib/net35/BCrypt.Net-Next.xml",
+        "lib/net462/BCrypt.Net-Next.dll",
+        "lib/net462/BCrypt.Net-Next.xml",
+        "lib/net472/BCrypt.Net-Next.dll",
+        "lib/net472/BCrypt.Net-Next.xml",
+        "lib/net48/BCrypt.Net-Next.dll",
+        "lib/net48/BCrypt.Net-Next.xml",
+        "lib/net5.0/BCrypt.Net-Next.dll",
+        "lib/net5.0/BCrypt.Net-Next.xml",
+        "lib/net6.0/BCrypt.Net-Next.dll",
+        "lib/net6.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.0/BCrypt.Net-Next.dll",
+        "lib/netstandard2.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.1/BCrypt.Net-Next.dll",
+        "lib/netstandard2.1/BCrypt.Net-Next.xml",
+        "readme.md"
+      ]
+    },
     "BouncyCastle.NetCore/1.8.5": {
       "sha512": "6uxsQw2UXrt82VQAWC2td3oBSJjUZ3P4u4DliagB8wf67KsU53V8sW9xwdF+IwZOOZFR0TCZuv/YKZ2BlrfAag==",
       "type": "package",
@@ -8683,6 +8723,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "BCrypt.Net-Next >= 4.0.3",
       "JWT >= 8.9.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.10",
       "Microsoft.AspNetCore.Identity >= 2.2.0",
@@ -8699,19 +8740,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danny\\.nuget\\packages\\": {}
+    "C:\\Users\\Danny\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\RaFilDa\\API\\API\\RaFilDaAPI.csproj",
+      "projectUniqueName": "d:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
       "projectName": "RaFilDaAPI",
-      "projectPath": "D:\\RaFilDa\\API\\API\\RaFilDaAPI.csproj",
-      "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
-      "outputPath": "D:\\RaFilDa\\API\\API\\obj\\",
+      "projectPath": "d:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\RaFilDaAPI.csproj",
+      "packagesPath": "C:\\Users\\Danny\\.nuget\\packages\\",
+      "outputPath": "d:\\Škola\\PRG\\Tretak\\ProjektRafilda\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8737,6 +8778,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "BCrypt.Net-Next": {
+            "target": "Package",
+            "version": "[4.0.3, )"
+          },
           "JWT": {
             "target": "Package",
             "version": "[8.9.0, )"
@@ -8810,7 +8855,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

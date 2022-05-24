@@ -1,1 +1,6 @@
-300
+395
+192.168.160.128
+587
+false
+noreply@rafilda.cz
+123456Ab

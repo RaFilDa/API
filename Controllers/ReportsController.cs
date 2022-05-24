@@ -35,6 +35,15 @@ namespace RaFilDaAPI.Controllers
             return Ok();
         }
 
+        [HttpPost("/mailsettings")]
+        [Authorize(Role = "admin")]
+        public async Task<ActionResult> UpdateMailSettings(string[] settings)
+        {
+             // je potreba to udelat tak nejak aby to skiplo 1. hodnotu ta s tim nema nic spolecnyho
+            System.IO.File.WriteAllLines("mailInfo.txt", settings);
+            return Ok();
+        }
+
         [HttpPost]
         [Authorize(Role = "admin,daemon")]
         public async Task<ActionResult<List<Report>>> AddReport(Report report)

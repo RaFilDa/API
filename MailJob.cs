@@ -17,6 +17,7 @@ namespace RaFilDaAPI
         public List<string> messageList = new List<string>{};
         public string body;
         public int lastSentId;
+        public string[] mailInfo;
 
         public MailJob(MyContext myContext)
         {
@@ -26,26 +27,29 @@ namespace RaFilDaAPI
         {
             myContext.SaveChanges();
 
+            mailInfo = File.ReadAllLines("mailInfo.txt");
+
             string subject = "Backup Error Reports - " + DateTime.Now.ToString("d/M/yyyy");
 
             try {
-            lastSentId = Convert.ToInt32(File.ReadAllText("mailInfo.txt"));
+            lastSentId = Convert.ToInt32(mailInfo[0]);
             foreach (Report report in myContext.Reports.ToList())
             {
                 if (report.IsError && report.Id > lastSentId) messageList.Add(report.Message);
             }
-            File.WriteAllText("mailInfo.txt", myContext.Reports.ToList().Last().Id.ToString());
+            mailInfo[0] = myContext.Reports.ToList().Last().Id.ToString();
+            File.WriteAllLines("mailInfo.txt", mailInfo);
             }
             catch { Debug.WriteLine("Nelze se připojit k databázi"); }
             if (messageList.Count == 0)
             { body = "<h1>There were no error reports.</h1>"; }
             else
             { body = "<h1>Error reports:</h1> " + "<br />" + string.Join("<br />", messageList); }
-            string from = "RaFilDaReports@post.cz";
+            string from = mailInfo[4];
             List<User> recipients = myContext.Users.ToList();
             MailMessage mail = new MailMessage();
             mail.IsBodyHtml = true;
-            SmtpClient smtpServer = new SmtpClient("192.168.160.128");
+            SmtpClient smtpServer = new SmtpClient(mailInfo[1]);
             mail.From = new MailAddress(from);
             foreach (User recipient in recipients)
             {
@@ -63,11 +67,11 @@ namespace RaFilDaAPI
 
             mail.Subject = subject;
             mail.Body = body;
-            smtpServer.Port = 587;
-            smtpServer.Credentials = new System.Net.NetworkCredential("noreply@rafilda.cz", "123456Ab");
-            smtpServer.EnableSsl = false;
+            smtpServer.Port = Convert.ToInt32(mailInfo[2]);
+            smtpServer.Credentials = new System.Net.NetworkCredential(mailInfo[4], mailInfo[5]);
+            smtpServer.EnableSsl = Convert.ToBoolean(mailInfo[3]);
             try { smtpServer.Send(mail); }
-            catch(Exception e) { Debug.WriteLine("Žádný příjemce"); }
+            catch(Exception e) { Debug.WriteLine("Send error"); }
             messageList.Clear();
             body = "";
             return Task.CompletedTask;
