@@ -20,8 +20,6 @@ namespace RaFilDaAPI
     {
         public Startup(IConfiguration configuration)
         {
-            Scheduler.BuildScheduler();
-            Scheduler.CreateJob();
             Configuration = configuration;
         }
 
