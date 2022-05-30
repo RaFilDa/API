@@ -18,6 +18,8 @@ namespace RaFilDaAPI
         public string body;
         public int lastSentId;
         public string[] mailInfo;
+        public string subject;
+        public string bodymsg;
 
         public MailJob(MyContext myContext)
         {
@@ -29,22 +31,34 @@ namespace RaFilDaAPI
 
             mailInfo = File.ReadAllLines("mailInfo.txt");
 
-            string subject = "Backup Error Reports - " + DateTime.Now.ToString("d/M/yyyy");
+            if (Convert.ToBoolean(mailInfo[6]))
+            {
+                subject = "Backup Error Reports - " + DateTime.Now.ToString("d/M/yyyy");
+                bodymsg = "Error reports:";
+            }
+            else
+            {
+                subject = "Backup Reports - " + DateTime.Now.ToString("d/M/yyyy");
+                bodymsg = "All reports:";
+            }
 
             try {
             lastSentId = Convert.ToInt32(mailInfo[0]);
             foreach (Report report in myContext.Reports.ToList())
             {
-                if (report.IsError && report.Id > lastSentId) messageList.Add(report.Message);
+                if (Convert.ToBoolean(mailInfo[6]))
+                    {if (report.IsError && report.Id > lastSentId) messageList.Add(report.Date + " | " + report.Message);}
+                else
+                    {if (report.Id > lastSentId) messageList.Add(report.Date + " | " + report.Message);}
             }
             mailInfo[0] = myContext.Reports.ToList().Last().Id.ToString();
             File.WriteAllLines("mailInfo.txt", mailInfo);
             }
             catch { Debug.WriteLine("Nelze se připojit k databázi"); }
             if (messageList.Count == 0)
-            { body = "<h1>There were no error reports.</h1>"; }
+            { body = "<h1>There were no reports.</h1>"; }
             else
-            { body = "<h1>Error reports:</h1> " + "<br />" + string.Join("<br />", messageList); }
+            { body = "<h1>" + bodymsg + "</h1> " + "<br />" + string.Join("<br />", messageList); }
             string from = mailInfo[4];
             List<User> recipients = myContext.Users.ToList();
             MailMessage mail = new MailMessage();

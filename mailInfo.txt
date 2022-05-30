@@ -1,6 +1,7 @@
-395
-192.168.160.128
+465
+smtp.seznam.cz
 587
 false
-noreply@rafilda.cz
+RaFilDaReports@post.cz
 123456Ab
+true
