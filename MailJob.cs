@@ -10,21 +10,16 @@ using RaFilDaAPI.Entities;
 
 namespace RaFilDaAPI
 {
-    [DisallowConcurrentExecution]
     public class MailJob : IJob
     {
-        private readonly MyContext myContext;
-        public List<string> messageList = new List<string>{};
+        private MyContext myContext = new ();
+        public List<string> messageList = new();
         public string body;
         public int lastSentId;
         public string[] mailInfo;
         public string subject;
         public string bodymsg;
 
-        public MailJob(MyContext myContext)
-        {
-            this.myContext = myContext;
-        }
         public Task Execute(IJobExecutionContext context)
         {
             myContext.SaveChanges();

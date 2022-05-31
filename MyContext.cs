@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using RaFilDaAPI.Entities;
 
 namespace RaFilDaAPI
 {
     public class MyContext : DbContext
     {
-        public MyContext(DbContextOptions<MyContext> options) : base(options) { }
-
+        public IConfiguration Configuration { get; }
         public DbSet<Computer> Computers { get; set; }
         public DbSet<Config> Configs { get; set; }
         public DbSet<User> Users { get; set; }
@@ -20,5 +20,10 @@ namespace RaFilDaAPI
         public DbSet<ReportDetail> ReportDetails { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<BannedSession> BannedSessions { get; set; }
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseMySQL("server=mysqlstudenti.litv.sssvt.cz;database=3b1_piterakradek_db1;user=piterakradek;password=123456");
+        }
     }
 }

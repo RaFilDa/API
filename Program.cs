@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Quartz;
@@ -9,8 +10,11 @@ namespace RaFilDaAPI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
+            Timer tmr = new Timer();
+            await tmr.SetUp();
+            
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -19,23 +23,6 @@ namespace RaFilDaAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                })
-                .ConfigureServices((hostContext, services) =>
-                {
-                    services.AddQuartz(q =>
-                    {
-                        q.UseMicrosoftDependencyInjectionScopedJobFactory();
-
-                        var JobKey = new JobKey("MailJob");
-                        string cron = File.ReadAllText(@".\mailCron.txt");
-                        q.AddJob<MailJob>(opts => opts.WithIdentity(JobKey));
-                        q.AddTrigger(opts => opts
-                            .ForJob(JobKey)
-                            .WithIdentity("t_MailJob")
-                            .WithCronSchedule(cron)
-                        );
-                    });
-                    services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
                 });
     }
 }

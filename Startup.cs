@@ -32,10 +32,7 @@ namespace RaFilDaAPI
 
             services.AddControllers();
 
-            services.AddDbContext<MyContext>(options => 
-            {
-                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
-            });
+            services.AddDbContext<MyContext>();
 
             services.AddSwaggerGen(c =>
             {

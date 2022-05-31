@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.IO;
+using Quartz;
 
 namespace RaFilDaAPI.Controllers
 {
@@ -32,6 +33,13 @@ namespace RaFilDaAPI.Controllers
         public async Task<ActionResult> UpdateCron(string cron)
         {
             System.IO.File.WriteAllText("mailCron.txt", cron);
+            
+            await Timer.scheduler.Clear();
+            IJobDetail job = JobBuilder.Create<MailJob>().Build();
+            ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(cron).Build();
+            await Timer.scheduler.ScheduleJob(job, trigger);
+            await Timer.scheduler.Start();
+            
             return Ok();
         }
 
