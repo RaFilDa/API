@@ -11,7 +11,10 @@ namespace RaFilDaAPI
         public async Task SetUp()
         {
             if (scheduler != null)
-                await scheduler.Clear();
+            {
+                await scheduler.Shutdown();
+                await scheduler.Clear();   
+            }
             scheduler = await new StdSchedulerFactory().GetScheduler();
             await Prepare();
         }
