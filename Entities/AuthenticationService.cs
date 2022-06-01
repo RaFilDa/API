@@ -24,6 +24,14 @@ namespace RaFilDaAPI.Entities
         {
             try
             {
+                if(myContext.Users.ToList().Count == 0 && credentials.Login == "admin" && credentials.Password == "admin")
+                    return JwtBuilder.Create()
+                        .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
+                        .WithSecret(SECRET)
+                        .AddClaim("exp", DateTimeOffset.UtcNow.AddSeconds(3600).ToUnixTimeSeconds())
+                        .AddClaim("role", "admin")
+                        .Encode();
+                
                 User user = this.myContext.Users.ToList().FirstOrDefault(x => x.Username == credentials.Login &&
                                                                             BCrypt.Net.BCrypt.Verify(credentials.Password, x.Password, false, HashType.SHA384));
 

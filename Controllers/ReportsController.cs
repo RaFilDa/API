@@ -42,6 +42,13 @@ namespace RaFilDaAPI.Controllers
             
             return Ok();
         }
+        
+        [HttpGet("/cron")]
+        [Authorize(Role = "admin")]
+        public JsonResult GetCron()
+        {
+            return new JsonResult(System.IO.File.ReadAllText("mailcron.txt"));
+        }
 
         [HttpPost("/mailsettings")]
         [Authorize(Role = "admin")]
@@ -51,6 +58,13 @@ namespace RaFilDaAPI.Controllers
             fileArr = fileArr.Concat(settings);
             System.IO.File.WriteAllLines("mailInfo.txt", fileArr);
             return Ok();
+        }
+        
+        [HttpGet("/mailsettings")]
+        [Authorize(Role = "admin")]
+        public async Task<ActionResult<string[]>> GetMailSettings()
+        {
+            return Ok(System.IO.File.ReadAllLines("mailInfo.txt").Skip(1).ToArray());
         }
 
         [HttpPost]
