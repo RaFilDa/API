@@ -78,13 +78,6 @@ namespace RaFilDaAPI.Controllers
         }
 
         [HttpGet]
-        [Route("GetConfigsByGroupID")]
-        public IQueryable<ConfGroup> GetConfigs_ByGroupID(int groupId)
-        {
-            return myContext.ConfGroups.FromSqlRaw("select * from ConfGroups where GroupID = {0}", groupId);
-        }
-        
-        [HttpGet]
         [Route("GetConfigsByCompID/{id}")]
         public IQueryable<Config> GetConfigs_ByComputer(int id)
         {

@@ -53,13 +53,6 @@ namespace RaFilDaAPI.Controllers
         {
             return myContext.Computers.FromSqlRaw("select c.* from CompConfs cc inner join Computers c on c.id = cc.compId where cc.ConfigID = {0}", confId);
         }
-        
-        [HttpGet("GetComputersByGroupID/{groupId}")]
-        [Authorize(Role = "admin")]
-        public IQueryable<Computer> GetComputers_ByGroupID(int groupId)
-        {
-            return myContext.Computers.FromSqlRaw("select c.* from CompGroups cc inner join Computers c on c.id = cc.compId where cc.groupId = {0}", groupId);
-        }
 
         [HttpPost]
         [Authorize(Role = "admin,daemon")]
@@ -69,25 +62,6 @@ namespace RaFilDaAPI.Controllers
             await myContext.SaveChangesAsync();
 
             return Ok(await myContext.Computers.ToListAsync());
-        }
-
-        [HttpPost]
-        [Route("AddComputerToGroup")]
-        [Authorize(Role = "admin")]
-        public ActionResult<IQueryable<CompGroup>> AddComputerToGroup(int compID, int groupID)
-        {
-            if(compID == 0 || groupID == 0)
-                return BadRequest();
-
-            var compGroup = new CompGroup{
-                Id = 0, 
-                CompID = compID,
-                GroupID = groupID
-            };
-            myContext.CompGroups.Add(compGroup);
-            myContext.SaveChanges();
-
-            return Ok(myContext.CompGroups.FromSqlRaw("select * from CompGroups"));
         }
 
         [HttpPost]
@@ -150,26 +124,6 @@ namespace RaFilDaAPI.Controllers
             myContext.SaveChanges();
 
             return Ok(await myContext.Computers.ToListAsync());
-        }
-
-        [HttpDelete]
-        [Route("RemoveComputerFromGroup")]
-        [Authorize(Role = "admin")]
-        public ActionResult<IQueryable<CompGroup>> RemoveComputerFromGroup(int compID, int groupID)
-        {
-            if(compID == 0 || groupID == 0)
-                return BadRequest();         
-
-            try {
-            var deleted =
-                myContext.CompGroups.FromSqlRaw("select * from CompGroups where GroupID = {0} and CompID = {1}",
-                    groupID, compID).First();
-                myContext.CompGroups.Remove(deleted);
-            }
-            catch { return NotFound(); }
-            myContext.SaveChanges();
-
-            return Ok(myContext.CompGroups.FromSqlRaw("select * from CompGroups"));
         }
 
         [HttpDelete]
