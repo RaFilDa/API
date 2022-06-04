@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 //using RaFilDaAPI.Repositories;
 using Microsoft.EntityFrameworkCore;
+using RaFilDaAPI.Entities;
 
 namespace RaFilDaAPI
 {

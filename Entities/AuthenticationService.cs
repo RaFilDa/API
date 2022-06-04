@@ -15,9 +15,9 @@ namespace RaFilDaAPI.Entities
 
         private readonly MyContext myContext; 
 
-        public AuthenticationService(MyContext myContext)
+        public AuthenticationService()
         {
-            this.myContext = myContext;
+            this.myContext = new MyContext();
         }
 
         public string Authenticate(Credentials credentials)
@@ -60,8 +60,8 @@ namespace RaFilDaAPI.Entities
             try
             {
                 HttpClient http = new HttpClient(new HttpClientHandler() { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator });;
-                Task<string> result = http.PostAsync("https://localhost:5001/api/Sessions/banned?token=" + token, null).Result.Content.ReadAsStringAsync();
-                if (Boolean.Parse(result.Result))
+                bool result = myContext.BannedSessions.Any(x => x.token == token);
+                if (result)
                     return "";
                 
                 string json = JwtBuilder.Create()
@@ -76,6 +76,11 @@ namespace RaFilDaAPI.Entities
             {
                 return "";
             }
+        }
+
+        public bool CheckExpired(string token)
+        {
+            return VerifyToken(token) == "";
         }
     }
 }

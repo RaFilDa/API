@@ -1,14 +1,11 @@
 using JWT.Algorithms;
 using JWT.Builder;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RaFilDaAPI;
 using RaFilDaAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AuthenticationService = RaFilDaAPI.Entities.AuthenticationService;
@@ -21,12 +18,12 @@ namespace RaFilDaAPI.Controllers
     {
         
         private readonly MyContext myContext;
-        private RaFilDaAPI.Entities.AuthenticationService auth;
+        private AuthenticationService auth;
 
         public SessionsController(MyContext myContext)
         {
             this.myContext = myContext;
-            this.auth = new RaFilDaAPI.Entities.AuthenticationService(myContext);
+            this.auth = new AuthenticationService();
         }
 
         [HttpPost]
@@ -34,7 +31,7 @@ namespace RaFilDaAPI.Controllers
         {
             try
             {
-                return new JsonResult(this.auth.Authenticate(credentials));
+                return new JsonResult(auth.Authenticate(credentials));
             }
             catch(Exception e)
             {
@@ -46,19 +43,28 @@ namespace RaFilDaAPI.Controllers
         [Authorize(Role = "admin")]
         public async Task<ActionResult<List<Session>>> GetSessions()
         {
-            return Ok(await myContext.Sessions.ToListAsync());
+            var output = await myContext.Sessions.Select(x => new SessionInfo() {session = x, expired = this.auth.CheckExpired(x.token)}).ToListAsync();
+            return Ok(output);
         }
         
         [HttpPost("add")]
         [Authorize(Role = "admin")]
-        public async Task<ActionResult<List<Session>>> AddSession(string name)
+        public async Task<ActionResult<List<Session>>> AddSession(string name, int days, bool unlimited)
         {
-            string token = JwtBuilder.Create()
-                .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
-                .WithSecret(AuthenticationService.SECRET)
-                .AddClaim("exp", DateTimeOffset.UtcNow.AddYears(1).ToUnixTimeSeconds())
-                .AddClaim("role", "daemon")
-                .Encode();
+            string token;
+            if(unlimited)
+                token = JwtBuilder.Create()
+                    .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
+                    .WithSecret(AuthenticationService.SECRET)
+                    .AddClaim("role", "daemon")
+                    .Encode();
+            else
+                token = JwtBuilder.Create()
+                    .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
+                    .WithSecret(AuthenticationService.SECRET)
+                    .AddClaim("exp", DateTimeOffset.UtcNow.AddDays(days).ToUnixTimeSeconds())
+                    .AddClaim("role", "daemon")
+                    .Encode();
             
             Session session = new Session
             {

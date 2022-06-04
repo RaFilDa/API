@@ -23,7 +23,7 @@ namespace RaFilDaAPI.Controllers
          // }
 
 
-        private AuthenticationService auth = new (null);
+        private AuthenticationService auth = new ();
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
@@ -41,7 +41,7 @@ namespace RaFilDaAPI.Controllers
                 context.Result = new JsonResult("authentication failed") { StatusCode = StatusCodes.Status401Unauthorized };
         }
     }
-
+    
     record Result
     {
         public string? exp { get; set; }
