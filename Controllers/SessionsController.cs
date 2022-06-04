@@ -23,7 +23,7 @@ namespace RaFilDaAPI.Controllers
         public SessionsController(MyContext myContext)
         {
             this.myContext = myContext;
-            this.auth = new AuthenticationService();
+            this.auth = new AuthenticationService(myContext);
         }
 
         [HttpPost]

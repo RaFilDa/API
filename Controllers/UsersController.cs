@@ -31,8 +31,20 @@ namespace RaFilDaAPI.Controllers
         {
             string salt = BCrypt.Net.BCrypt.GenerateSalt(6);
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, salt);
-            Console.WriteLine(user.Password);
             myContext.Users.Add(user);
+            await myContext.SaveChangesAsync();
+
+            return Ok(await myContext.Users.ToListAsync());
+        }
+        [HttpPut]
+        public async Task<ActionResult<List<User>>> UpdateUser(User user)
+        {
+            string salt = BCrypt.Net.BCrypt.GenerateSalt(6);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, salt);
+            User curUser = myContext.Users.Find(user.Id);
+            curUser.Username = user.Username;
+            curUser.Password = user.Password;
+            curUser.Email = user.Email;
             await myContext.SaveChangesAsync();
 
             return Ok(await myContext.Users.ToListAsync());
