@@ -56,6 +56,7 @@ namespace RaFilDaAPI.Controllers
                 token = JwtBuilder.Create()
                     .WithAlgorithm(new HMACSHA256Algorithm()) // symmetric
                     .WithSecret(AuthenticationService.SECRET)
+                    .AddClaim("exp", DateTimeOffset.MaxValue.ToUnixTimeSeconds())
                     .AddClaim("role", "daemon")
                     .Encode();
             else
