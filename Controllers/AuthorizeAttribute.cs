@@ -23,7 +23,7 @@ namespace RaFilDaAPI.Controllers
          // }
 
 
-        private AuthenticationService auth = new ();
+        private AuthenticationService auth = new (null);
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {

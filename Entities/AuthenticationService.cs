@@ -15,9 +15,9 @@ namespace RaFilDaAPI.Entities
 
         private readonly MyContext myContext; 
 
-        public AuthenticationService()
+        public AuthenticationService(MyContext myContext)
         {
-            this.myContext = new MyContext();
+            this.myContext = myContext;
         }
 
         public string Authenticate(Credentials credentials)
@@ -60,8 +60,8 @@ namespace RaFilDaAPI.Entities
             try
             {
                 HttpClient http = new HttpClient(new HttpClientHandler() { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator });;
-                bool result = myContext.BannedSessions.Any(x => x.token == token);
-                if (result)
+                Task<string> result = http.PostAsync("https://localhost:5001/api/Sessions/banned?token=" + token, null).Result.Content.ReadAsStringAsync();
+                if (Boolean.Parse(result.Result))
                     return "";
                 
                 string json = JwtBuilder.Create()
