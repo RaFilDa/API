@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BCrypt.Net;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RaFilDaAPI.Entities
 {
@@ -59,9 +60,7 @@ namespace RaFilDaAPI.Entities
         {
             try
             {
-                HttpClient http = new HttpClient(new HttpClientHandler() { ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator });;
-                Task<string> result = http.PostAsync("https://localhost:5001/api/Sessions/banned?token=" + token, null).Result.Content.ReadAsStringAsync();
-                if (Boolean.Parse(result.Result))
+                if (myContext.BannedSessions.Any(x => x.token == token))
                     return "";
                 
                 string json = JwtBuilder.Create()

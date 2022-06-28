@@ -74,6 +74,8 @@ namespace RaFilDaAPI
                     }
                 );            
             });
+            
+            services.AddScoped<AuthenticationService>();
 
         }
 
